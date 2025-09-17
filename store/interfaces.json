@@ -1,0 +1,91 @@
+{
+  "vtex-ads-pixel-event": {
+    "component": "PixelEvent"
+  },
+
+  "vtex-ads-banner": {
+    "component": "Banner",
+    "content": {
+      "$ref": "#/definitions/Banner"
+    }
+  },
+
+  "vtex-ads-sponsored-brands": {
+    "component": "SponsoredBrands",
+    "required": ["list-context.product-list-static"],
+    "allowed": ["product-summary.shelf", "rich-text"],
+    "content": {
+      "$ref": "#/definitions/SponsoredBrands"
+    }
+  },
+
+  "vtex-ads-shelf": {
+    "required": ["list-context.product-list-static"],
+    "allowed": ["product-summary.shelf", "rich-text"],
+    "component": "Shelf",
+    "content": {
+      "$ref": "#/definitions/Shelf"
+    }
+  },
+
+  "vtex-ads-products": {
+    "required": ["product-summary.shelf"],
+    "component": "SponsoredProducts",
+    "content": {
+      "$ref": "#/definitions/SponsoredProducts"
+    }
+  },
+
+  "vtex-ads-conversion": {
+    "component": "Conversion"
+  },
+
+  "pixel.vtex-ads": {
+    "component": "Pixel"
+  },
+
+  "product-sponsored-tag": {
+    "component": "ProductSponsoredTag"
+  },
+
+  "pixel.newtail-media": {
+    "component": "Pixel"
+  },
+
+  "newtail-media-pixel-event": {
+    "component": "PixelEvent"
+  },
+
+  "newtail-media-banner": {
+    "component": "Banner",
+    "content": {
+      "$ref": "#/definitions/Banner"
+    }
+  },
+
+  "newtail-media-sponsored-brands": {
+    "component": "SponsoredBrands",
+    "required": ["list-context.product-list-static"],
+    "allowed": ["product-summary.shelf", "rich-text"],
+    "content": {
+      "$ref": "#/definitions/SponsoredBrands"
+    }
+  },
+
+  "newtail-media-shelf": {
+    "required": ["list-context.product-list-static"],
+    "allowed": ["product-summary.shelf", "rich-text"],
+    "component": "Shelf",
+    "content": {
+      "$ref": "#/definitions/Shelf"
+    }
+  },
+
+  "newtail-media-products": {
+    "required": ["product-summary.shelf"],
+    "component": "SponsoredProducts",
+    "content": {
+      "$ref": "#/definitions/SponsoredProducts"
+    }
+  }
+}

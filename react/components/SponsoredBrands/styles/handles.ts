@@ -1,0 +1,18 @@
+export const CSS_HANDLES = [
+  'sponsored-brands-container',
+  'sponsored-brands-header',
+  'sponsored-brands-header-container',
+  'sponsored-brands-header-content',
+  'sponsored-brands-header-headline',
+  'sponsored-brands-header-description',
+  'sponsored-brands-header-button',
+  'sponsored-brands-content',
+  'sponsored-brands-label-container',
+  'sponsored-brands-label-text',
+  'sponsored-brands-logo-container',
+  'sponsored-brands-logo',
+  'sponsored-brands-banner-container',
+  'sponsored-brands-products-container',
+  'sponsored-brands-banner-image',
+  'sponsored-brands-banner-item',
+] as const

@@ -1,0 +1,187 @@
+query productsByIdentifier(
+  $field: ProductUniqueIdentifierField!
+  $values: [ID!]
+) {
+  productsByIdentifier(field: $field, values: $values)
+    @context(provider: "vtex.search-graphql") {
+    brand
+    brandId
+    cacheId
+    categoryId
+    categories
+    clusterHighlights {
+      id
+      name
+    }
+    description
+    items {
+      attachments {
+        id
+        name
+        required
+      }
+      complementName
+      ean
+      images(quantity: 10) {
+        imageId
+        imageLabel
+        imageTag
+        imageText
+        imageUrl
+      }
+      itemId
+      kitItems {
+        amount
+        itemId
+        product {
+          brand
+          categoryId
+          description
+          linkText 
+          productId
+          productName
+          properties {
+            name
+            values
+          }
+        }
+        sku {
+          images {
+            imageId
+            imageLabel
+            imageTag
+            imageText
+            imageUrl
+          }
+          itemId
+          name
+          referenceId {
+            Key
+            Value
+          }
+          sellers {
+            addToCartLink
+            commertialOffer {
+              AvailableQuantity
+              CacheVersionUsedToCallCheckout
+              Installments(criteria: MAX) {
+                InterestRate
+                Name
+                NumberOfInstallments
+                TotalValuePlusInterestRate
+                Value
+              }
+              ListPrice
+              Price
+              PriceValidUntil
+              PriceWithoutDiscount
+              RewardValue
+              Tax
+              discountHighlights {
+                name
+              }
+            }
+            sellerDefault
+            sellerId
+            sellerName
+          }
+        }
+      }
+      measurementUnit
+      name
+      nameComplete
+      referenceId {
+        Key
+        Value
+      }
+      sellers {
+        addToCartLink
+        commertialOffer {
+          AvailableQuantity
+          CacheVersionUsedToCallCheckout
+          Installments {
+            InterestRate
+            Name
+            NumberOfInstallments
+            TotalValuePlusInterestRate
+            Value
+          }
+          ListPrice
+          Price
+          PriceValidUntil
+          PriceWithoutDiscount
+          RewardValue
+          Tax
+          discountHighlights {
+            name
+          }
+          teasers {
+            conditions {
+              minimumQuantity
+              parameters {
+                name
+                value
+              }
+            }
+            effects {
+              parameters {
+                name
+                value
+              }
+            }
+            name
+          }
+        }
+        sellerDefault
+        sellerId
+        sellerName
+      }
+      unitMultiplier
+      variations {
+        name
+        values
+      }
+      videos {
+        videoUrl
+      }
+    }
+    link
+    linkText
+    metaTagDescription
+    priceRange {
+      listPrice {
+        highPrice
+        lowPrice
+      }
+      sellingPrice {
+        highPrice
+        lowPrice
+      }
+    }
+    productClusters {
+      id
+      name
+    }
+    productId
+    productName
+    productReference
+    properties {
+      name
+      values
+    }
+    specificationGroups {
+      name
+      specifications {
+        name
+        values
+      }
+    }
+    titleTag
+    benefits {
+      featured
+      id
+      name
+      teaserType
+    }
+  }
+}

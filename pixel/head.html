@@ -1,0 +1,11 @@
+<script>
+  window.newtailMedia = window.newtailMedia || {};
+
+  if ('{{ settings.publisherId }}'?.length) {
+    window.newtailMedia.publisherId = '{{ settings.publisherId }}';
+  }
+
+  if ('{{ settings.brandCode }}'?.length) {
+    window.newtailMedia.brandCode = '{{ settings.brandCode }}';
+  }
+</script>

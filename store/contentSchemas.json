@@ -1,0 +1,114 @@
+{
+  "definitions": {
+    "Banner": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "title": "admin/vtex-vtex-ads.common.active.title",
+          "type": "boolean",
+          "default": true
+        },
+        "placementNameAdmin": {
+          "title": "admin/vtex-vtex-ads.common.placementNameAdmin.title",
+          "description": "admin/vtex-vtex-ads.banner.placementNameAdmin.description",
+          "type": "string"
+        },
+        "sizeAdmin": {
+          "title": "admin/vtex-vtex-ads.banner.sizeAdmin.title",
+          "description": "admin/vtex-vtex-ads.banner.sizeAdmin.description",
+          "type": "string"
+        },
+        "sizeMobileAdmin": {
+          "title": "admin/vtex-vtex-ads.banner.sizeMobileAdmin.title",
+          "description": "admin/vtex-vtex-ads.banner.sizeMobileAdmin.description",
+          "type": "string"
+        },
+        "quantityAdmin": {
+          "title": "admin/vtex-vtex-ads.common.quantityAdmin.title",
+          "description": "admin/vtex-vtex-ads.common.quantityAdmin.banner.description",
+          "type": "string"
+        },
+        "categoryNameAdmin": {
+          "title": "admin/vtex-vtex-ads.common.categoryNameAdmin.title",
+          "description": "admin/vtex-vtex-ads.common.categoryNameAdmin.description",
+          "type": "string"
+        }
+      }
+    },
+    "Shelf": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "title": "admin/vtex-vtex-ads.common.active.title",
+          "type": "boolean",
+          "default": true
+        },
+        "placementNameAdmin": {
+          "title": "admin/vtex-vtex-ads.common.placementNameAdmin.title",
+          "description": "admin/vtex-vtex-ads.shelf.placementNameAdmin.description",
+          "type": "string"
+        },
+        "quantityAdmin": {
+          "title": "admin/vtex-vtex-ads.common.quantityAdmin.title",
+          "description": "admin/vtex-vtex-ads.common.quantityAdmin.product.description",
+          "type": "string"
+        },
+        "categoryNameAdmin": {
+          "title": "admin/vtex-vtex-ads.common.categoryNameAdmin.title",
+          "description": "admin/vtex-vtex-ads.common.categoryNameAdmin.description",
+          "type": "string"
+        }
+      }
+    },
+    "SponsoredBrands": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "title": "admin/vtex-vtex-ads.common.active.title",
+          "type": "boolean",
+          "default": true
+        },
+        "placementNameAdmin": {
+          "title": "admin/vtex-vtex-ads.common.placementNameAdmin.title",
+          "description": "admin/vtex-vtex-ads.shelf.placementNameAdmin.description",
+          "type": "string"
+        },
+        "quantityAdmin": {
+          "title": "admin/vtex-vtex-ads.common.quantityAdmin.title",
+          "description": "admin/vtex-vtex-ads.common.quantityAdmin.product.description",
+          "type": "string"
+        },
+        "categoryNameAdmin": {
+          "title": "admin/vtex-vtex-ads.common.categoryNameAdmin.title",
+          "description": "admin/vtex-vtex-ads.common.categoryNameAdmin.description",
+          "type": "string"
+        }
+      }
+    },
+    "SponsoredProducts": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "title": "admin/vtex-vtex-ads.common.active.title",
+          "type": "boolean",
+          "default": true
+        },
+        "placementNameAdmin": {
+          "title": "admin/vtex-vtex-ads.common.placementNameAdmin.title",
+          "description": "admin/vtex-vtex-ads.shelf.placementNameAdmin.description",
+          "type": "string"
+        },
+        "quantityAdmin": {
+          "title": "admin/vtex-vtex-ads.common.quantityAdmin.title",
+          "description": "admin/vtex-vtex-ads.common.quantityAdmin.product.description",
+          "type": "string"
+        },
+        "categoryNameAdmin": {
+          "title": "admin/vtex-vtex-ads.common.categoryNameAdmin.title",
+          "description": "admin/vtex-vtex-ads.common.categoryNameAdmin.description",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

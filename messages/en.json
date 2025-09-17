@@ -1,0 +1,37 @@
+{
+  "admin/vtex-vtex-ads.common.active.title": "Active",
+  "admin/vtex-vtex-ads.common.placementNameAdmin.title": "Placement Name",
+  "admin/vtex-vtex-ads.common.quantityAdmin.title": "Quantity of Ads",
+  "admin/vtex-vtex-ads.common.quantityAdmin.banner.description": "Enter a value greater than or equal to 1. By default, 1 ad will be requested. To disable a placement, use the 'Active' property.",
+  "admin/vtex-vtex-ads.common.quantityAdmin.product.description": "Enter a value greater than or equal to 1. By default, 20 ads will be requested. To disable a placement, use the 'Active' property.",
+  "admin/vtex-vtex-ads.common.categoryNameAdmin.title": "Category (optional)",
+  "admin/vtex-vtex-ads.common.categoryNameAdmin.description": "[Advanced] Use this field on pages without context where a category needs to be forced for the banner or in specific cases.",
+
+  "admin/vtex-vtex-ads.shelf.title": "VTEX Ads - Shelf",
+  "admin/vtex-vtex-ads.shelf.placementNameAdmin.description": "By default, 'placement_product_default' will be used. Prefer the name registered in the ad platform.",
+
+  "admin/vtex-vtex-ads.sponsoredBrand.title": "VTEX Ads - Sponsored Brand",
+  "admin/vtex-vtex-ads.sponsoredBrand.placementNameAdmin.description": "If you don't have a placement name registered in the theme or admin, 'placement_sb_default' will be used by default. Prefer the name registered in the ad platform.",
+
+  "admin/vtex-vtex-ads.banner.title": "VTEX Ads - Banner",
+  "admin/vtex-vtex-ads.banner.placementNameAdmin.description": "By default, 'placement_banner_default' will be used. Prefer the name registered in the ad platform.",
+  "admin/vtex-vtex-ads.banner.sizeAdmin.title": "Desktop Media Size",
+  "admin/vtex-vtex-ads.banner.sizeAdmin.description": "Use the same size registered in the ad platform. By default, the value 'banner' will be used.",
+  "admin/vtex-vtex-ads.banner.sizeMobileAdmin.title": "Mobile Media Size (optional)",
+  "admin/vtex-vtex-ads.banner.sizeMobileAdmin.description": "Use the same size registered in the ad platform. If not provided, the 'Desktop Media Size' value will be used.",
+
+  "admin/vtex-vtex-ads.search.title": "VTEX Ads - Search",
+  "admin/vtex-vtex-ads.search.placementNameAdmin.description": "By default, 'placement_search_default' will be used. Prefer the name registered in the ad platform.",
+  "admin/vtex-vtex-ads.search.tagPosition.title": "Tag Position",
+  "admin/vtex-vtex-ads.search.tagPosition.description": "Indicate where the tag should be displayed within the product card",
+  "admin/vtex-vtex-ads.search.tagPosition.start": "Start",
+  "admin/vtex-vtex-ads.search.tagPosition.end": "End",
+  "admin/vtex-vtex-ads.search.tagText.default": "Sponsored",
+  "admin/vtex-vtex-ads.search.tagText.title": "Sponsored Tag Text",
+  "admin/vtex-vtex-ads.search.tagText.description": "By default, 'sponsored' will be used with automatic translation. To replace it, fill in this field.",
+  "admin/vtex-vtex-ads.search.tagClassname.title": "Tag Class",
+  "admin/vtex-vtex-ads.search.tagClassname.description": "By default, '.newtail-sponsored-tag' will be used.",
+  "admin/vtex-vtex-ads.search.parentSearchSelector.title": "HTML Element for Tag Insertion",
+  "admin/vtex-vtex-ads.search.parentSearchSelector.description": "[Advanced] This field should only be edited by developers. By default, '.vtex-search-result-3-x-searchResultContainer #gallery-layout-container' will be used.",
+  "admin/vtex-vtex-ads.search.onlyFirstSKU.title": "Use only the first SKU. If checked, only the first SKU of the product will be used for search in Newtail. If unchecked, all SKUs of the product will be used for search in Newtail."
+}

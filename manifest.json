@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "vtex-ads",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "title": "VTEX Ads",
   "description": "Storefront app de integração com o sistema de anúncios VTEX Ads para Store Framework.",
   "builders": {
@@ -33,7 +33,9 @@
     "vtex.css-handles": "1.x",
     "vtex.product-summary-context": "0.x"
   },
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "policies": [
     {
       "name": "read-write-apps-settings"

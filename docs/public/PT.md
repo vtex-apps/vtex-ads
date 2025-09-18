@@ -1,14 +1,14 @@
-# newtail-media-app
+# vtex-ads-app
 
 O aplicativo VTEX Ads tem a finalidade de fornecer componentes para implementar Retail Media em uma loja Vtex.
 
-O aplicativo tem um campo de configuração para inserir o publiser id. Os componentes shelf, banner e search possibilitam algumas edições via site editor. As mesmas edições também poderão ser feitas via declaração de bloco. Os valores do site editor sobrepõem os valores declarados no bloco.
+O aplicativo tem campos de configuração para inserir o publisher id e brand id se necessário. Os componentes shelf, banner e sponsored-brands possibilitam algumas edições via site editor. As mesmas edições também poderão ser feitas via declaração de bloco. Os valores do site editor sobrepõem os valores declarados no bloco.
 
 ## Install
 
 ---
 
-Para mais detalhes sobre a instalação no tema, acesse: [a documentação](https://newtail-media.readme.io/reference/newtail-media-app-install-pt)
+Para mais detalhes sobre a instalação no tema, acesse: [a documentação](https://vtex-ads.readme.io/reference/vtex-ads-app-install-pt)
 
 ## Blocos disponíveis
 
@@ -16,10 +16,11 @@ Para mais detalhes sobre a instalação no tema, acesse: [a documentação](http
 
 | Bloco                      | Descrição                                                                                                                            |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `newtail-media-banner`     | Componente para renderizar banners patrocinados de acordo com o contexto da página.                                                  |
-| `newtail-media-search`     | Componente para tratar os resultados da busca. Adiciona um selo patrocinados nos produtos patrocinado e pode reodenar os resultados. |
-| `newtail-media-shelf`      | Componente para renderizar uma carrossel de produtos patrocinados de acordo com o contexto da página.                                |
-| `newtail-media-conversion` | Componente para tratar os eventos de conversão.                                                                                      |
+| `vtex-ads-banner`          | Componente para renderizar banners patrocinados de acordo com o contexto da página.                                                  |
+| `vtex-ads-sponsored-brands`| Componente para renderizar anúncios de marcas patrocinadas de acordo com o contexto da página.                                        |
+| `vtex-ads-shelf`           | Componente para renderizar uma carrossel de produtos patrocinados de acordo com o contexto da página.                                |
+| `vtex-ads-pixel-event`     | Componente para rastrear eventos de produtos (cliques, impressões, etc.) dentro dos cards de produto.                                |
+| `vtex-ads-conversion`      | Componente para tratar os eventos de conversão.                                                                                      |
 
 ## Propriedades dos blocos
 
@@ -31,7 +32,7 @@ As propriedades dos blocos podem ser definidas pelo site-editor ou diretamente p
 
 ---
 
-`newtail-media-banner`
+`vtex-ads-banner`
 
 Este componente renderiza banners na tela. Ele pega o contexto da página e consulta o servidor de anúncios Newtail para verificar se há banners disponíveis.
 
@@ -61,7 +62,7 @@ Propriedades disponibilizadas no site editor.
 
 ---
 
-`newtail-media-search`
+`vtex-ads-sponsored-brands`
 
 Este componente deve ser chamado sempre dentro do provedor da busca. Ele verifica os resultados da busca, reúne os SKUs e consulta no servidor de anúncios Newtail quais estão patrocinados. Após o resultado, uma tag indicando patrocínio é adicionada ao item correspondente.
 
@@ -98,7 +99,7 @@ Propriedades disponibilizadas no site editor.
 
 ---
 
-`newtail-media-shelf`
+`vtex-ads-shelf`
 
 Este componente monta uma prateleira com os SKUs patrocinados. Ele pega o contexto da página e consulta o servidor de anúncios Newtail para obter SKUs patrocinados. Após o resultado, é feita uma consulta no catálogo da loja para montar a prateleira de produtos.
 
@@ -126,6 +127,8 @@ Propriedades disponibilizadas no site editor.
 
 ---
 
-`newtail-media-conversion`
+`vtex-ads-conversion`
 
-Este componente é responsável por enviar para a Newtail dados sobre os pedidos feitos na loja. Serve quando não há uma integração de API fazendo isso.
+Este componente é responsável por enviar dados sobre os pedidos feitos na loja para a plataforma de anúncios. Serve quando não há uma integração de API fazendo isso.
+
+> ⚠️ **Importante**: Antes de implementar o componente de conversão, consulte o suporte técnico para determinar se é necessário para seu caso de uso específico.

@@ -1,11 +1,16 @@
 import React, { useCallback, useMemo, useRef } from 'react'
 import { useProduct } from 'vtex.product-context'
+import { useCssHandles } from 'vtex.css-handles'
 
 import type { ProductContextValue } from '../../typings/ProductContextValue'
 import { useOnView } from '../../hooks/useOnView'
 import { useAds } from '../../hooks/useAds'
 
+const CSS_HANDLES = ['product-tag-label'] as const
+
 const ProductSponsoredTag: StorefrontFunctionComponent = () => {
+  const { handles } = useCssHandles(CSS_HANDLES)
+
   const adRef = useRef<HTMLDivElement | null>(null)
 
   const { handleEvents } = useAds()
@@ -34,7 +39,7 @@ const ProductSponsoredTag: StorefrontFunctionComponent = () => {
   })
 
   return (
-    <small className="product-item-label" ref={adRef}>
+    <small className={handles['product-tag-label']} ref={adRef}>
       patrocinado
     </small>
   )

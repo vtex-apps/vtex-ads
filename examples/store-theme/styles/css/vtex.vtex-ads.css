@@ -1,0 +1,64 @@
+/**
+* VTEX Ads - CSS Handles
+*
+* This file contains the CSS handles for the VTEX Ads app.
+* It is used to style the components of the app.
+*
+* @author VTEX
+* @version 0.0.1
+*/
+
+/**
+* vtex-ads-shelf
+*/
+.shelf-container {}
+
+/**
+* vtex-ads-banner
+*/
+.banner-container {}
+.banner-item {}
+.banner-image {}
+
+
+/**
+* vtex-ads-sponsored-brands
+*/
+
+.sponsored-brands-container {}
+
+.sponsored-brands-header {}
+
+.sponsored-brands-header-container {}
+
+.sponsored-brands-header-content {}
+
+.sponsored-brands-header-headline {}
+
+.sponsored-brands-header-description {}
+
+.sponsored-brands-header-button {}
+
+.sponsored-brands-content {}
+
+.sponsored-brands-label-container {}
+
+.sponsored-brands-label-text {}
+
+.sponsored-brands-logo-container {}
+
+.sponsored-brands-logo {}
+
+.sponsored-brands-banner-container {}
+
+.sponsored-brands-products-container {}
+
+.sponsored-brands-banner-image {}
+
+.sponsored-brands-banner-item {}
+
+/**
+* vtex-ads-pixel-event
+*/
+
+.product-pixel-event {}

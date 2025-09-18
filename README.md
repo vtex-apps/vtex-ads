@@ -1,5 +1,3 @@
-⚠️ Most of the documentation is deprecated. Update in progress. For any questions, contact support.
-
 # VTEX Ads APP VTEX
 
 The installation involves the following steps:

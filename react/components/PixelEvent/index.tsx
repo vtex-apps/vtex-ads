@@ -1,11 +1,16 @@
 import React, { useCallback, useMemo, useRef } from 'react'
 import { useProduct } from 'vtex.product-context'
+import { useCssHandles } from 'vtex.css-handles'
 
 import type { ProductContextValue } from '../../typings/ProductContextValue'
 import { useOnView } from '../../hooks/useOnView'
 import { useAds } from '../../hooks/useAds'
 
+const CSS_HANDLES = ['product-pixel-event'] as const
+
 const PixelEvent: StorefrontFunctionComponent = () => {
+  const { handles } = useCssHandles(CSS_HANDLES)
+
   const adRef = useRef<HTMLDivElement | null>(null)
 
   const { handleEvents } = useAds()
@@ -34,7 +39,7 @@ const PixelEvent: StorefrontFunctionComponent = () => {
 
   return (
     <span
-      className="product-pixel-event"
+      className={handles['product-pixel-event']}
       ref={adRef}
       style={{ width: 0, height: 0, zIndex: -1 }}
     />

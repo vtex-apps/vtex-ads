@@ -132,3 +132,5 @@ This component should be used inside product cards to listen to product events (
 `vtex-ads-conversion`
 
 This component is responsible for sending order data from the store to the ad platform. It is used when there is no API integration doing this.
+
+> ⚠️ **Important**: Before implementing the conversion component, please consult with technical support to determine if it's needed for your specific use case.

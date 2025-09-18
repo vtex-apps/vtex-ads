@@ -17,7 +17,7 @@ The implementation involves developing all the logic and components to display a
 
 > 📘 How to do
 >
-> All the necessary endpoints and payloads are available in our documentation under the sections [Ad Request](https://newtail-media.readme.io/reference/requisicao-de-anuncios) and [Event Notification](https://newtail-media.readme.io/reference/notificacao-de-eventos).
+> All the necessary endpoints and payloads are available in our documentation under the sections [Ad Request](https://vtex-ads.readme.io/reference/requisicao-de-anuncios) and [Event Notification](https://vtex-ads.readme.io/reference/notificacao-de-eventos).
 
 > 👍 Extra
 >

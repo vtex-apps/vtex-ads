@@ -61,7 +61,7 @@ Properties provided in the site editor.
 | `quantityAdmin`      | `number`  | `null`        | Quantity of ads requested.                                                                                                                                     |
 | `categoryNameAdmin`  | `string`  | `null`        | Category name if you want to force segmentation.                                                                                                               |
 
-## VTEX Ads Search
+## VTEX Ads Sponsored Brands
 
 ---
 
@@ -73,30 +73,50 @@ This component renders sponsored brand ads on the screen. It handles the page co
 
 Properties available only in the block definition.
 
-| Prop name              | Type          | Default value                                                             | Description                                                                                                                           |
-| ---------------------- | ------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `quantity`             | `number`      | `20`                                                                      | Number of requested ads.                                                                                                              |
-| `placementName`        | `string`      | `placement_search_default`                                                | Placement name used in the query. By default, 'placement_search_default' will be used. Prefer the name registered in the ad platform. |
-| `tagText`              | `string`      | `Sponsored`                                                               | Text to be used in the tag. By default, it will be "Sponsored" with automatic translation.                                            |
-| `tagClassname`         | `string`      | `newtail-sponsored-tag`                                                   | Class to be added to the HTML element of the tag.                                                                                     |
-| `tagPosition`          | `[start,end]` | `start`                                                                   | Indicates if the tag should be at the start or end of the product card.                                                               |
-| `parentSearchSelector` | `string`      | `.vtex-search-result-3-x-searchResultContainer #gallery-layout-container` | Indicates the container that wraps the search result. We use the _store-theme_ default.                                               |
-| `onlyFirstSKU`         | `boolean`     | `false`                                                                   | Indicates if we should look at only the main SKU or all related SKUs.                                                                 |
-| `sponsoredSkusAtTop`   | `boolean`     | `true`                                                                    | Indicates if we should reorder the search result. This option should not be used with infinite scroll.                                |
+| Prop name       | Type     | Default value              | Description                                                                                                                                                    |
+| --------------- | -------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `placementName` | `string` | `placement_brands_default` | Name of the placement used in the query. By default, 'placement_brands_default' will be used. Prefer the name registered on the ad platform.                   |
+| `size`          | `string` | `banner`                   | Image size to be requested. Same value registered on the retail media platform.                                                                                |
+| `sizeMobile`    | `string` | `null`                     | Image size to be requested when viewed on mobile devices. Same value registered on the retail media platform. If not provided, the desktop value will be used. |
+| `categoryName`  | `string` | `null`                     | Category name if you want to force segmentation.                                                                                                               |
 
 #### Properties via site editor
 
 Properties available in the site editor.
 
-| Prop name                   | Type          | Default value | Description                                                                                |
-| --------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------ |
-| `quantityAdmin`             | `number`      | `null`        | Number of requested ads.                                                                   |
-| `placementNameAdmin`        | `string`      | `null`        | Placement name used in the query.                                                          |
-| `tagTextAdmin`              | `string`      | `null`        | Text to be used in the tag. By default, it will be "Sponsored" with automatic translation. |
-| `tagClassnameAdmin`         | `string`      | `null`        | Class to be added to the HTML element of the tag.                                          |
-| `tagPositionAdmin`          | `[start,end]` | `null`        | Indicates if the tag should be at the start or end of the product card.                    |
-| `parentSearchSelectorAdmin` | `string`      | `null`        | Indicates the container that wraps the search result. We use the _store-theme_ default.    |
-| `onlyFirstSKUAdmin`         | `boolean`     | `null`        | Indicates if we should look at only the main SKU or all related SKUs.                      |
+| Prop name            | Type      | Default value | Description                                                                                                                                                    |
+| -------------------- | --------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `active`             | `boolean` | `true`        | Indicates if the placement is active.                                                                                                                          |
+| `placementNameAdmin` | `string`  | `null`        | Name of the placement used in the query.                                                                                                                       |
+| `sizeAdmin`          | `string`  | `null`        | Image size to be requested. Same value registered on the retail media platform.                                                                                |
+| `sizeMobileAdmin`    | `string`  | `null`        | Image size to be requested when viewed on mobile devices. Same value registered on the retail media platform. If not provided, the desktop value will be used. |
+| `categoryNameAdmin`  | `string`  | `null`        | Category name if you want to force segmentation.                                                                                                               |
+
+## VTEX Ads Pixel Event
+
+---
+
+`vtex-ads-pixel-event`
+
+This component should be used inside product cards to listen to product events (clicks, impressions, etc.). It enables proper tracking of user interactions with products.
+
+#### Properties via block `isLayout: true`
+
+Properties available only in the block definition.
+
+| Prop name       | Type     | Default value | Description                                        |
+| --------------- | -------- | ------------- | -------------------------------------------------- |
+| `placementName` | `string` | `products`    | Placement name used in the query.                  |
+| `categoryName`  | `string` | `null`        | Category name if you want to enforce segmentation. |
+
+#### Site editor props
+
+Properties available in the site editor.
+
+| Prop name            | Type     | Default value | Description                                        |
+| -------------------- | -------- | ------------- | -------------------------------------------------- |
+| `placementNameAdmin` | `string` | `null`        | Placement name used in the query.                  |
+| `categoryNameAdmin`  | `string` | `null`        | Category name if you want to enforce segmentation. |
 
 ## VTEX Ads Shelf
 
@@ -126,20 +146,6 @@ Properties available in the site editor.
 | `placementNameAdmin` | `string` | `null`        | Placement name used in the query.                  |
 | `categoryNameAdmin`  | `string` | `null`        | Category name if you want to enforce segmentation. |
 
-💡 If you need to duplicate the component or pass properties directly through the theme, it should be declared at the root of the JSON file and receive a block with the necessary components for its operation.
-
-```json
-{
-  "newtail-media-shelf#component-id": {
-    "title": "Newtail Shelf - top_product",
-    "blocks": ["{{vendor}}.newtail-media:list-context.product-list-static"],
-    "props": {
-      "placementName": "top_product"
-    }
-  }
-  // ...
-}
-```
 
 ## VTEX Ads Conversion
 
@@ -150,3 +156,5 @@ This component should be used inside product cards to listen to product events (
 `vtex-ads-conversion`
 
 This component is responsible for sending order data from the store to the ad platform. It is used when there is no API integration doing this.
+
+> ⚠️ **Important**: Before implementing the conversion component, please consult with technical support to determine if it's needed for your specific use case.

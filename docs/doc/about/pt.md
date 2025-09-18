@@ -19,7 +19,7 @@ A implementação consiste em desenvolver toda lógica e componentes para exibir
 
 > 📘 Como fazer
 >
-> Todos os endpoints e payloads necessários constam na nossa documentação nas seções [Requisição de anúncios](https://newtail-media.readme.io/reference/requisicao-de-anuncios) e [Notificação de eventos](https://newtail-media.readme.io/reference/notificacao-de-eventos).
+> Todos os endpoints e payloads necessários constam na nossa documentação nas seções [Requisição de anúncios](https://vtex-ads.readme.io/reference/requisicao-de-anuncios) e [Notificação de eventos](https://vtex-ads.readme.io/reference/notificacao-de-eventos).
 
 > 👍 Extra
 >

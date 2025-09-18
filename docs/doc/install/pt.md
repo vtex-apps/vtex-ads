@@ -2,47 +2,59 @@
 
 A instalação conta com os seguintes passos:
 
-**1** - Adicionar o app como uma dependência do tema no arquivo `manifest.json`.
+**1** - Instalar o app usando a CLI da VTEX:
+
+```bash
+vtex install vtex.vtex-ads
+```
+
+**2** - Adicionar o app como uma dependência do tema no arquivo `manifest.json`.
 
 ```json
 {
   "dependencies": {
-    "vendor.newtail-media": "2.x"
+    "vtex.vtex-ads": "0.x"
   }
 }
 ```
 
-**2** - Adicionar o ID do publisher na configuração do app no admin da VTEX.
+**3** - Configurar o ID do publisher no painel de administração da VTEX.
 
-**3** - Declarar os blocos do app no tema.
+**4** - Configurar o ID da marca se necessário no painel de administração da VTEX.
+
+**5** - Declarar os blocos do app no tema.
 
 ## Modo desenvolvimento
 
-> 🚧 `vtex workspace use newtail`
+> 🚧 `vtex workspace use vtexads`
 
-Toda implementação será feita em ambiente de desenvolvimento. Usaremos o workspace newtail. Após validação, publicaremos no ambiente master da loja.
+Toda implementação deve ser feita em ambiente de desenvolvimento. Use o workspace vtexads para testes. Após validação, publique no ambiente master da loja.
 
 ## Componentes disponíveis
 
-1. `newtail-media-banner`  
+1. `vtex-ads-banner`  
    Esse componente é responsável pela requisição, exibição e gerenciamento dos eventos relacionados aos anúncios do tipo banner. Ele exibirá uma banner no local que for inserido.
-2. `newtail-media-shelf`  
+2. `vtex-ads-shelf`  
    Esse componente é responsável pela requisição, exibição e gerenciamento dos eventos relacionados aos anúncios do tipo produtos. Ele montará um carrossel de produtos no local que for inserido usando componentes nativos VTEX.
-3. `newtail-media-search`  
-   Esse componente é responsável por gerenciar resultados patrocinados na busca.
-4. `newtail-media-conversion`  
-   Esse componente é responsável pelo gerenciamento dos eventos de conversão.
+3. `vtex-ads-sponsored-brands`  
+   Esse componente é responsável por exibir anúncios de marcas patrocinadas.
+4. `vtex-ads-pixel-event`  
+   Esse componente deve ser usado dentro dos cards de produto para ouvir eventos de produtos (cliques, impressões, etc.).
+5. `vtex-ads-conversion`  
+   Esse componente é responsável pelo gerenciamento dos eventos de conversão. **Por favor, consulte o suporte técnico antes de implementar este componente.**
 
 | Para saber mais, acesse a página sobre os componentes. Lá será possível encontrar a documentação específica de cada e as propriedades recebidas vida propriedades do bloco ou via site editor.
 
+> 📁 **Exemplos Completos**: Verifique a pasta `examples/` para exemplos de implementação mais robustos e completos que cobrem diferentes cenários e casos de uso.
+
 ## Exibindo anúncios
 
-Devemos adicionar os componentes correspondentes nas páginas que exibirão os anúncios e fazer os ajustes visuais necessários.
+Adicione os componentes correspondentes nas páginas que exibirão os anúncios e faça os ajustes visuais necessários.
 
 > É fundamental ter um conhecimento mínimo da declaração de blocos da VTEX.
 
 **📘 Implementação**  
-Abaixo usaremos a página de busca como exemplo.  
+Use a página de busca como exemplo.  
 `store/blocks/search/`
 
 > O nome do arquivo pode variar de tema para tema caso tenha customização.
@@ -51,29 +63,29 @@ Abaixo usaremos a página de busca como exemplo.
 
 ```json
 {
-  "newtail-media-search": {
-    "props": {
-      "placementName": "nome_do_placement"
-    }
-  },
-  "newtail-media-banner": {
-    "title": "Newtail Banner - search_header",
+  "vtex-ads-banner": {
+    "title": "VTEX Ads Banner - search_header",
     "props": {
       "placementName": "search_header",
       "size": "leaderboard",
       "sizeMobile": "large_rectangle"
     }
   },
+  "vtex-ads-sponsored-brands": {
+    "title": "VTEX Ads Sponsored Brands",
+    "props": {
+      "placementName": "search_sponsored_brands",
+      "size": "leaderboard",
+      "sizeMobile": "large_rectangle"
+    }
+  },
   "store.search": {
     "blocks": [
-      "newtail-media-banner",
-      "newtail-media-shelf",
+      "vtex-ads-banner",
+      "vtex-ads-sponsored-brands",
+      "vtex-ads-shelf",
       "search-result-layout"
     ]
-  },
-  // ...
-  "search-result-layout.desktop": {
-    "children": ["newtail-media-search", "others-children"]
   }
 }
 ```
@@ -85,28 +97,52 @@ Abaixo usaremos a página de busca como exemplo.
   "my-mobile-search-component": {
     "props": {},
     "children": [
-      "newtail-media-banner",
-      "newtail-media-shelf",
+      "vtex-ads-banner",
+      "vtex-ads-sponsored-brands",
+      "vtex-ads-shelf",
       "another-children"
     ]
   }
 }
 ```
 
+## Rastreamento de Eventos de Produto
+
+**📘 Implementação**
+
+Para rastrear eventos de produtos (cliques, impressões, etc.), adicione o componente `vtex-ads-pixel-event` dentro dos seus cards de produto.
+
+```json
+{
+  "product-summary.shelf": {
+    "children": [
+      "vtex-ads-pixel-event",
+      "product-summary-image",
+      "product-summary-name",
+      "product-summary-price"
+    ]
+  }
+}
+```
+
+> O componente `vtex-ads-pixel-event` deve ser colocado como filho do componente de card de produto para rastrear corretamente as interações do usuário.
+
 ## Notificando conversão
 
 **📘 Implementação**
 
-Também vamos precisar adicionar um componente na página `OrderPlaced` para medir eventos de conversão.
+> ⚠️ **Importante**: Antes de implementar o componente de conversão, consulte o suporte técnico para determinar se é necessário para seu caso de uso específico.
 
-1. Adicionar o `newtail-media-conversion` no arquivo de configuração da página Order Placed `store/blocks/orderplaced.jsonc`
+Também será necessário adicionar um componente na página `OrderPlaced` para rastrear eventos de conversão.
+
+1. Adicionar o `vtex-ads-conversion` no arquivo de configuração da página Order Placed `store/blocks/orderplaced.jsonc`
 
 > O nome do arquivo pode variar de tema para tema caso tenha customização.
 
 ```json
 {
   "store.orderplaced": {
-    "blocks": ["order-placed", "newtail-media-conversion"]
+    "blocks": ["order-placed", "vtex-ads-conversion"]
   }
 }
 ```

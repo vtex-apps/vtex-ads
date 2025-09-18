@@ -1,0 +1,75 @@
+{
+  /**
+   * Ad Block
+   * [en] Here is called the block that builds the sponsored banner
+   */
+  "vtex-ads-banner#pdp-top": {
+    "title": "VTEX Ads - Banner top PDP",
+    "props": {
+      "placementName": "site_pdp_top_banner", // {channel}_{context}_ {position}_{type}
+      "size": "1280x176", // Same size registered in the ad platform
+      "sizeMobile": "634x300" // Same size registered in the ad platform
+    }
+  },
+
+  /**
+   * UI Blocks
+   * [en] From here, we will have examples of auxiliary layout blocks
+   */
+
+  /**
+   * Responsive layout
+   * [en] Not all are required, you can use according to your customization needs
+   */
+
+  // Desktop
+
+  "flex-layout.col#vtex-ads-pdp-top-banner.desktop": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": ["vtex-ads-banner#pdp-top"]
+  },
+  "flex-layout.row#vtex-ads-pdp-top-banner.desktop": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": ["flex-layout.col#vtex-ads-pdp-top-banner.desktop"]
+  },
+
+  "responsive-layout.desktop#vtex-ads-pdp-top-banner": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.responsive-layout
+    "children": ["flex-layout.row#vtex-ads-pdp-top-banner.desktop"]
+  },
+
+  // Mobile
+  "flex-layout.col#vtex-ads-pdp-top-banner.mobile": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": ["vtex-ads-banner#pdp-top"]
+  },
+  "flex-layout.row#vtex-ads-pdp-top-banner.mobile": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": ["flex-layout.col#vtex-ads-pdp-top-banner.mobile"]
+  },
+
+  "responsive-layout.mobile#vtex-ads-pdp-top-banner": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.responsive-layout
+    "children": ["flex-layout.row#vtex-ads-pdp-top-banner.mobile"]
+  },
+
+  /**
+   * Group responsive
+   */
+  "flex-layout.col#vtex-ads-pdp-top-banner": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": [
+      "responsive-layout.desktop#vtex-ads-pdp-top-banner",
+      "responsive-layout.mobile#vtex-ads-pdp-top-banner"
+    ]
+  },
+
+  /**
+   * Final component
+   * This block will be called in the PDP of your theme in the position you want to insert ads.
+   */
+  "flex-layout.row#vtex-ads-pdp-top-banner": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": ["flex-layout.col#vtex-ads-pdp-top-banner"]
+  }
+}

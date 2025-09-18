@@ -1,0 +1,55 @@
+/**
+ * Common blocks for VTEX Ads
+ * These blocks will be used in the vtex-ads blocks. Required and optional dependencies.
+ */
+{
+  /**
+   * Optional title - `rich-text`
+   * Allowed by vtex-ads-shelf
+   */
+  "rich-text#vtex-ads-sponsored-title": {
+    "title": "VTEX Ads - Sponsored title",
+    "props": {
+      "text": "Separados para você"
+    }
+  },
+  /**
+   * Product card
+   * Optional - If you don't want to customize, use the default card from the theme.
+   */
+  "product-card-custom#product-custom-ads": {
+    "title": "VTEX Ads - Product card"
+  },
+
+  "flex-layout.row#product-card-ads": {
+    "children": ["product-card-custom#product-custom-ads"]
+  },
+
+  "product-summary.shelf#product-custom-ads": {
+    "children": ["flex-layout.row#product-card-ads", "vtex-ads-pixel-event"]
+  },
+
+  /**
+   * Slider layout
+   * Optional - If you don't want to customize, use the default slider-layout from the theme.
+   */
+  "slider-layout#vtex-ads": {
+    "title": "VTEX Ads - Slider layout",
+    "props": {
+      "itemsPerPage": {
+        "desktop": 4,
+        "tablet": 2,
+        "mobile": 1
+      }
+    }
+  },
+
+  /**
+   * Product list
+   */
+  "list-context.product-list-static#vtex-ads": {
+    "blocks": ["product-summary.shelf#product-custom-ads"],
+    "children": ["slider-layout#vtex-ads"],
+    "title": "VTEX Ads - Product shelf - Wrapper context"
+  }
+}

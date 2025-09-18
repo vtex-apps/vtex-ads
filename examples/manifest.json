@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "vtex.vtex-ads": "0.x"
+  }
+}

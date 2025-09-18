@@ -1,0 +1,75 @@
+{
+  /**
+   * AD Block
+   * [en] Here is called the block that builds the sponsored products carousel
+   */
+  "vtex-ads-sponsored-brands#search-top": {
+    "title": "VTEX Ads - Sponsored brand",
+    "blocks": ["list-context.product-list-static#vtex-ads"],
+    "props": {
+      "placementName": "site_search_top_sb", // {channel}_{context}_ {position}_{type}
+      "sizeMobile": "450x150", // Same size registered in the ad platform
+      "size": "450x225", // Same size registered in the ad platform
+      "hideHeader": true // Optional
+    }
+  },
+
+  /**
+   * UI Blocks
+   * [en] From here, we will have examples of auxiliary layout blocks
+   */
+
+  /**
+   * Responsive layout
+   * [en] Not all are required, you can use according to your customization needs
+   */
+
+  // Desktop
+  "flex-layout.col#vtex-ads-search-sb-top.desktop": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": ["vtex-ads-sponsored-brands#search-top"]
+  },
+
+  "flex-layout.row#vtex-ads-search-sb-top.desktop": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": ["flex-layout.col#vtex-ads-search-sb-top.desktop"]
+  },
+
+  "responsive-layout.desktop#vtex-ads-search-sb-top": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.responsive-layout
+    "children": ["flex-layout.row#vtex-ads-search-sb-top.desktop"]
+  },
+
+  // Mobile
+  "flex-layout.col#vtex-ads-search-sb-top.mobile": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": ["vtex-ads-sponsored-brands#search-top"]
+  },
+
+  "flex-layout.row#vtex-ads-search-sb-top.mobile": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": ["flex-layout.col#vtex-ads-search-sb-top.mobile"]
+  },
+
+  "responsive-layout.mobile#vtex-ads-search-sb-top": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.responsive-layout
+    "children": ["flex-layout.row#vtex-ads-search-sb-top.mobile"]
+  },
+
+  /**
+   * export components
+   */
+
+  "flex-layout.col#vtex-ads-search-sb-top": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": [
+      "responsive-layout.desktop#vtex-ads-search-sb-top",
+      "responsive-layout.mobile#vtex-ads-search-sb-top"
+    ]
+  },
+
+  "flex-layout.row#vtex-ads-search-sb-top": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": ["flex-layout.col#vtex-ads-search-sb-top"]
+  }
+}

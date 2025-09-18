@@ -1,14 +1,14 @@
-# newtail-media-app
+# vtex-ads-app
 
 The VTEX Ads app provides components to implement Retail Media in a Vtex store.
 
-The app has a configuration field to enter the publisher id. The shelf, banner, and search components allow some edits via the site editor. The same edits can also be made via block declaration. The values from the site editor override the values declared in the block.
+The app has configuration fields to enter the publisher id and brand id if necessary. The shelf, banner, and sponsored-brands components allow some edits via the site editor. The same edits can also be made via block declaration. The values from the site editor override the values declared in the block.
 
 ## Install
 
 ---
 
-For more details on the installation, visit: [the documentation](https://newtail-media.readme.io/reference/newtail-media-app-install-en)
+For more details on the installation, visit: [the documentation](https://vtex-ads.readme.io/reference/vtex-ads-app-install-en)
 
 ## Available Blocks
 
@@ -16,10 +16,11 @@ For more details on the installation, visit: [the documentation](https://newtail
 
 | Block                      | Description                                                                                                   |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `newtail-media-banner`     | Component to render sponsored banners according to the page context.                                          |
-| `newtail-media-search`     | Component to handle search results. Adds a sponsored label to sponsored products and can reorder the results. |
-| `newtail-media-shelf`      | Component to render a carousel of sponsored products according to the page context.                           |
-| `newtail-media-conversion` | Component to handle conversion events.                                                                        |
+| `vtex-ads-banner`          | Component to render sponsored banners according to the page context.                                          |
+| `vtex-ads-sponsored-brands`| Component to render sponsored brand ads according to the page context.                                        |
+| `vtex-ads-shelf`           | Component to render a carousel of sponsored products according to the page context.                           |
+| `vtex-ads-pixel-event`     | Component to track product events (clicks, impressions, etc.) inside product cards.                          |
+| `vtex-ads-conversion`      | Component to handle conversion events.                                                                        |
 
 ## Block Properties
 
@@ -31,9 +32,9 @@ Block properties can be defined either through the site editor or directly in th
 
 ---
 
-`newtail-media-banner`
+`vtex-ads-banner`
 
-This component renders banners on the screen. It takes the page context and queries the Newtail ad server to check for available banners.
+This component renders banners on the screen. It takes the page context and queries the ad server to check for available banners.
 
 #### Properties via block `isLayout: true`
 
@@ -61,9 +62,9 @@ Properties available in the site editor.
 
 ---
 
-`newtail-media-search`
+`vtex-ads-sponsored-brands`
 
-This component should always be called within the search provider. It checks the search results, gathers the SKUs, and queries the Newtail ad server to identify which are sponsored. After obtaining the results, a tag indicating sponsorship is added to the corresponding item.
+This component renders sponsored brand ads on the screen. It takes the page context and queries the ad server to check for available sponsored brand ads.
 
 #### Properties via block `isLayout: true`
 
@@ -98,9 +99,9 @@ Properties available in the site editor.
 
 ---
 
-`newtail-media-shelf`
+`vtex-ads-shelf`
 
-This component creates a shelf with sponsored SKUs. It takes the page context and queries the Newtail ad server to retrieve sponsored SKUs. After the result, a query is made to the store catalog to build the product shelf.
+This component creates a shelf with sponsored SKUs. It takes the page context and queries the ad server to retrieve sponsored SKUs. After the result, a query is made to the store catalog to build the product shelf.
 
 #### Block props `isLayout: true`
 
@@ -124,6 +125,10 @@ Properties available in the site editor.
 
 ## VTEX Ads Conversion
 
-`newtail-media-conversion`
+`vtex-ads-pixel-event`
 
-This component is responsible for sending order data from the store to Newtail. It is used when there is no API integration doing this.
+This component should be used inside product cards to listen to product events (clicks, impressions, etc.). It enables proper tracking of user interactions with products.
+
+`vtex-ads-conversion`
+
+This component is responsible for sending order data from the store to the ad platform. It is used when there is no API integration doing this.

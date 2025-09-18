@@ -1,0 +1,33 @@
+{
+  "store.product": {
+    "children": [
+      "responsive-layout.desktop#pdp",
+      "responsive-layout.tablet#pdp",
+      "responsive-layout.phone#pdp"
+    ]
+  },
+  "responsive-layout.desktop#pdp": {
+    "children": [
+      "flex-layout.row#vtex-ads-pdp-top-banner", // ./store-theme/store/blocks/vtexads/site-pdp-top-banner.jsonc
+      "flex-layout.row#pdp-desktop-main",
+      "flex-layout.row#vtex-ads-pdp-middle-product", // ./store-theme/store/blocks/vtexads/site-pdp-middle-product.jsonc
+      "flex-layout.row#pdp-desktop-info"
+    ]
+  },
+  "responsive-layout.tablet#pdp": {
+    "children": [
+      "flex-layout.row#vtex-ads-pdp-top-banner", // ./store-theme/store/blocks/vtexads/site-pdp-top-banner.jsonc
+      "flex-layout.row#pdp-desktop-main",
+      "flex-layout.row#vtex-ads-pdp-middle-product", // ./store-theme/store/blocks/vtexads/site-pdp-middle-product.jsonc
+      "flex-layout.row#pdp-desktop-info"
+    ]
+  },
+  "responsive-layout.phone#pdp": {
+    "children": [
+      "flex-layout.row#vtex-ads-pdp-top-banner", // ./store-theme/store/blocks/vtexads/site-pdp-top-banner.jsonc
+      "flex-layout.row#pdp-desktop-main",
+      "flex-layout.row#vtex-ads-pdp-middle-product", // ./store-theme/store/blocks/vtexads/site-pdp-middle-product.jsonc
+      "flex-layout.row#pdp-desktop-info"
+    ]
+  }
+}

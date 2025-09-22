@@ -1,33 +1,26 @@
-**Implementation of the Newtail Retail Media Ecosystem**
+# VTEX Ads APP
 
-# About the Integration
+This app allows you to display ads in VTEX stores in a simple and configurable way. It offers ready-to-use components to render banners, sponsored product carousels, and sponsored brand placements in strategic areas of your store.
 
-The integration is composed of two stages: **[1] catalog synchronization** and **[2] implementation of the logic** for handling ads and events.
+While this app is designed to work smoothly with the VTEX Site Editor (CMS), the initial setup requires a developer. The ad blocks must first be declared in the store theme code before they become available in the Site Editor, where visual and behavioral configurations can then be adjusted as needed.
 
-# 1 - Catalog Synchronization
+## Key Features
 
-To synchronize the catalog, you can integrate it via **API** or **XML**.
+- **Easy Integration**: Simple setup with VTEX CLI
+- **Site Editor Compatible**: Visual configuration through VTEX CMS
+- **Multiple Ad Types**: Banners, sponsored products, and sponsored brands
+- **Event Tracking**: Built-in impression, click, and conversion tracking
+- **Responsive Design**: Mobile and desktop optimized components
+- **Native VTEX Components**: Uses VTEX's native product components for consistency
 
-1. **API** - Generate API keys for catalog reading.
-2. **XML** - Provide a link to the XML following the Google Shopping standard.
+## How It Works
 
-# 2 - Ad Implementation
+The VTEX Ads APP provides a complete solution for implementing retail media in VTEX stores:
 
-The implementation involves developing all the logic and components to display ads and trigger events: impression, view, click, and conversion.
+1. **Installation**: Install the app via VTEX CLI and configure publisher settings
+2. **Theme Integration**: Declare ad blocks in your store theme
+3. **Configuration**: Set up ad placements and targeting through the admin panel
+4. **Display**: Ads are automatically rendered based on page context and configuration
+5. **Tracking**: Events are automatically tracked and sent to the ad platform
 
-> 📘 How to do
->
-> All the necessary endpoints and payloads are available in our documentation under the sections [Ad Request](https://vtex-ads.readme.io/reference/requisicao-de-anuncios) and [Event Notification](https://vtex-ads.readme.io/reference/notificacao-de-eventos).
-
-> 👍 Extra
->
-> We provide a repository with a storefront app example to assist in development - VTEX Ads APP VTEX. It includes banner components, product carousel, and search result handling using native VTEX components with all the logic for requesting and triggering events. If needed, contact us for more information.
-
-If you choose the **Newtail implementation**, there will be a few additional steps. Not all of them may be necessary.
-
-1. Create Newtail users for access to VTEX.IO.
-2. Install the app in the workspace newtail.
-3. Grant access to the theme for component installation (or install them yourself).
-4. Implement the APP components in the theme.
-5. Validate the components.
-6. Publish in production.
+This approach ensures seamless integration with your existing store theme while providing powerful advertising capabilities.

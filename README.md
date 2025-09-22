@@ -1,14 +1,44 @@
-# VTEX Ads APP VTEX
+# VTEX Ads APP
 
-The installation involves the following steps:
+Este é um **Storefront app** que permite exibir anúncios em lojas VTEX de forma simples e configurável. Ele oferece componentes prontos para uso que renderizam banners, carrosséis de produtos patrocinados e posicionamentos de marcas patrocinadas em áreas estratégicas da sua loja.
 
-**1** - Install the app using the VTEX CLI:
+> 📚 **Documentação VTEX IO**: Para mais informações sobre desenvolvimento de Storefront apps, consulte a [documentação oficial da VTEX](https://developers.vtex.com/docs/guides/vtex-io-documentation-1-developing-storefront-apps-using-react-and-vtex-io).
+
+Embora este app seja projetado para funcionar perfeitamente com o VTEX Site Editor (CMS), a configuração inicial requer um desenvolvedor. Os blocos de anúncios devem primeiro ser declarados no código do tema da loja antes de ficarem disponíveis no Site Editor, onde as configurações visuais e comportamentais podem então ser ajustadas conforme necessário.
+
+## Pré-requisitos
+
+Antes de começar a implementação, certifique-se de ter:
+
+- **VTEX CLI** instalado e configurado
+- **Acesso ao store-theme** da loja (código do tema)
+- **Permissões de desenvolvedor** na conta VTEX
+
+> 📚 Para mais informações sobre o VTEX CLI, consulte a [documentação oficial da VTEX](https://developers.vtex.com/docs/guides/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
+
+## Modo de desenvolvimento
+
+> 🚧 `vtex use vtexads`
+
+Toda implementação deve ser feita no ambiente de desenvolvimento. [Use o workspace](https://developers.vtex.com/docs/guides/vtex-io-documentation-workspace) vtexads para o desenvolvimento. Após validação, publique no ambiente master da loja.
+
+## Instalação
+
+A instalação envolve os seguintes passos:
+1. Instalar o App via VTEX CLI
+2. Declarar a dependência no manifest.json no store-theme
+3. Linkar o tema
+4. Configurar o app
+5. Exibir anúncios
+
+### 1. Instalar o App via VTEX CLI
 
 ```bash
 vtex install vtex.vtex-ads
 ```
 
-**2** - Add the app as a theme dependency in the `manifest.json` file.
+### 2. Declarar a dependência no manifest.json
+Adicione o app VTEX ADS como dependência do store-theme no arquivo `manifest.json`.
 
 ```json
 {
@@ -18,99 +48,147 @@ vtex install vtex.vtex-ads
 }
 ```
 
-**3** - Configure the publisher ID in the VTEX admin panel.
+### 3. Linkar o tema
+Linke o tema para ver as mudanças no ambiente de desenvolvimento. `vtex link`
 
-**4** - Configure the brand ID if necessary in the VTEX admin panel.
+### 4. Configurar o app
 
-**5** - Declare the app's blocks in the theme.
+Neste momento, temos um passo importante para exibirmos anúncios. Acesse o painel administrativo da sua loja e configure:
+- Publisher ID (obrigatório)
+- Brand ID (opcional para publishers multi-marca)
 
-## Development Mode
+Você pode acessar a configuração manualmente pelo VTEX Admin:
 
-> 🚧 `vtex workspace use vtexads`
+1. Vá ao menu lateral e clique em **Apps**.
+2. Em seguida, selecione **Meus Apps**.
+3. Procure por **VTEX Ads**.
+4. Clique no app para acessar sua página de configuração.
 
-All implementation should be done in the development environment. Use the vtexads workspace for testing. After validation, publish it to the store's master environment.
+> ⚙️ A configuração também pode ser feita via link direto:  
+> `https://{{workspace}}--{{account}}.myvtex.com/admin/apps/vtex.vtex-ads@0.0.1/setup`  
+>  
+> ⚠️ Este link pode variar dependendo do **workspace** ou **versão do app**.
 
-## Available Components
+### 5. Lidando com os componentes
+Agora você precisa declarar os componentes nas páginas do seu tema. Os componentes são dividos em 2 classes: exibição de anúncios e notificação de eventos.
 
-1. `vtex-ads-banner`  
-   This component is responsible for requesting, displaying, and managing events related to banner-type ads. It will display a banner in the designated location.
-2. `vtex-ads-shelf`  
-   This component is responsible for requesting, displaying, and managing events related to product-type ads. It will create a product carousel in the designated location using native VTEX components.
-3. `vtex-ads-sponsored-brands`  
-   This component is responsible for displaying sponsored brand ads.
-4. `vtex-ads-pixel-event`  
-   This component should be used inside product cards to listen to product events (clicks, impressions, etc.).
-5. `vtex-ads-conversion`  
-   This component is responsible for managing conversion events. **Please consult with technical support before implementing this component.**
+⚠️ Para mais detalhes, consulte a seção de exemplos.
 
-| For more information, visit the components page. There you can find specific documentation for each component and the properties they receive through block properties or via site editor.
+#### Componentes Disponíveis (exibição e notificação de eventos)
 
-> 📁 **Complete Examples**: Check the `examples/` folder for more robust and complete implementation examples that cover different scenarios and use cases.
+1. Exibição
+    1. `vtex-ads-banner`  
+    Exibe banners patrocinados no local configurado. Este componente funciona de forma autônoma e não requer filhos.
 
-## Displaying Ads
+    2. `vtex-ads-shelf`  
+    Exibe produtos patrocinados em formato de prateleira. Para funcionar corretamente, é necessário receber os blocos `list-context.product-list-static`, `slider-layout` e o card de produto do tema (`product-summary.shelf`).  
+    > Essa estrutura garante liberdade para reaproveitar estilos e regras de negócio já aplicados no tema.
 
-Add the corresponding components to the pages that will display the ads and make the necessary visual adjustments.
+    3. `vtex-ads-sponsored-brands`  
+    Exibe marcas patrocinadas em carrossel. Também requer os blocos `list-context.product-list-static`, `slider-layout` e o card de produto do tema (ex: `product-summary.shelf`).
 
-> It is essential to have at least a basic understanding of VTEX block declaration.
+2. Notificação de eventos
+    1. `vtex-ads-pixel-event`  
+    Este componente deve ser usado dentro dos cards de produto para escutar eventos de produto (cliques, impressões, etc.).
+    2. `vtex-ads-conversion`  
+    Este componente é responsável por gerenciar eventos de conversão.   
+    **⚠️ Por favor, consulte o suporte técnico antes de implementar este componente.**
+ 
 
-**📘 Implementation**  
-Use the search page as an example.  
+### Exibindo Anúncios
+
+**⚠️ É essencial ter pelo menos um entendimento básico da declaração de blocos VTEX.**
+
+> 📁 **Exemplos Completos**: Verifique a pasta `examples/` para exemplos de implementação padronizados, mais robustos e completos que cobrem diferentes cenários e casos de uso.
+
+Adicione os componentes correspondentes às páginas que exibirão os anúncios e faça os ajustes visuais necessários.
+
+#### 📄 Exemplos de Uso
+Use a página de busca como exemplo.  
 `store/blocks/search/`
+> Lembre-se, o nome do arquivo pode variar dependendo do tema se ele foi personalizado.
 
-> The file name may vary depending on the theme if it has been customized.
+1. Banner
+    ```json
+        {
+          "vtex-ads-banner#search-top": {
+              "title": "VTEX Ads - Banner top PDP",
+              "props": {
+              "placementName": "site_search_top_banner", // {canal}_{contexto}_{posição}_{tipo}
+              "size": "1280x176", // Mesmo tamanho cadastrado no admin de ads
+              "sizeMobile": "634x300" // Mesmo tamanho cadastrado no admin de ads
+              }
+          },
+          "store.search": {
+              "blocks": [
+              "vtex-ads-banner#search-top",
+              "search-result-layout"
+              ]
+          }
+        }
+    ```
 
-1. Add ad display components.
+2. Produtos patrocinados
+> Para mantermos a originalidade e regras de negócio do tema, as shelfs recebem alguns componentes adicionais: `list-context.product-list-static`, `slider-layout` e `product-summary.shelf`.
+    ```json
+        {
+          "list-context.product-list-static#vtex-ads": {
+            "blocks": ["product-summary.shelf#product-custom-ads"],
+            "children": ["slider-layout#vtex-ads"],
+            "title": "VTEX Ads - Product shelf - Wrapper context"
+          },
+          "vtex-ads-shelf#pdp-middle": {
+            "title": "VTEX Ads - Product shelf middle PDP",
+            "blocks": [
+              "rich-text#vtex-ads-sponsored-title", // Optional
+              "list-context.product-list-static#vtex-ads"
+            ],
+            "props": {
+              "placementName": "site_search_topproduct", // {channel}_{context}_ {position}_{type}
+              "quantity": 10 // Optional, default is 20
+            }
+          },
+          "store.search": {
+              "blocks": [
+              "vtex-ads-shelf#pdp-middle",
+              "search-result-layout"
+              ]
+          }
+        }
+    ```
 
-```json
-{
-  "vtex-ads-banner": {
-    "title": "VTEX Ads Banner - search_header",
-    "props": {
-      "placementName": "search_header",
-      "size": "leaderboard",
-      "sizeMobile": "large_rectangle"
-    }
-  },
-  "vtex-ads-sponsored-brands": {
-    "title": "VTEX Ads Sponsored Brands",
-    "props": {
-      "placementName": "search_sponsored_brands",
-      "size": "leaderboard",
-      "sizeMobile": "large_rectangle"
-    }
-  },
-  "store.search": {
-    "blocks": [
-      "vtex-ads-banner",
-      "vtex-ads-sponsored-brands",
-      "vtex-ads-shelf",
-      "search-result-layout"
-    ]
-  }
-}
-```
 
-2. If there are variations in components to handle responsiveness, follow the same procedure.
+3. Marcas patrocinadas (sponsored brands)
+> Para mantermos a originalidade e regras de negócio do tema, as shelfs recebem alguns componentes adicionais: `list-context.product-list-static`, `slider-layout` e `product-summary.shelf`.
+    ```json
+        {
+          "list-context.product-list-static#vtex-ads": {
+            "blocks": ["product-summary.shelf#product-custom-ads"],
+            "children": ["slider-layout#vtex-ads"],
+            "title": "VTEX Ads - Product shelf - Wrapper context"
+          },
+          "vtex-ads-sponsored-brands#search-top": {
+            "title": "VTEX Ads - Sponsored brand",
+            "blocks": ["list-context.product-list-static#vtex-ads"],
+            "props": {
+              "placementName": "site_search_top_sb", // {channel}_{context}_ {position}_{type}
+              "sizeMobile": "450x150", // Same size registered in the ad platform
+              "size": "450x225", // Same size registered in the ad platform
+              "hideHeader": true // Optional
+            }
+          },
+          "store.search": {
+              "blocks": [
+              "vtex-ads-sponsored-brands#search-top",
+              "search-result-layout"
+              ]
+          }
+        }
+    ```
 
-```json
-{
-  "my-mobile-search-component": {
-    "props": {},
-    "children": [
-      "vtex-ads-banner",
-      "vtex-ads-sponsored-brands",
-      "vtex-ads-shelf",
-      "another-children"
-    ]
-  }
-}
-```
+### Notificando Eventos
 
-## Product Event Tracking
-
-**📘 Implementation**
-
-To track product events (clicks, impressions, etc.), add the `vtex-ads-pixel-event` component inside your product cards.
+Para rastrear eventos de produto (cliques, impressões, etc.), adicione o componente `vtex-ads-pixel-event` dentro dos seus cards de produto.
 
 ```json
 {
@@ -125,19 +203,17 @@ To track product events (clicks, impressions, etc.), add the `vtex-ads-pixel-eve
 }
 ```
 
-> The `vtex-ads-pixel-event` component should be placed as a child of the product card component to properly track user interactions.
+> O componente `vtex-ads-pixel-event` deve ser posicionado como filho do componente de card de produto para rastrear adequadamente as interações do usuário.
 
-## Notifying Conversion
+### Notificando Conversão
 
-**📘 Implementation**
+> ⚠️ **Importante**: Antes de implementar o componente de conversão, por favor consulte o suporte técnico para determinar se é necessário para o seu caso de uso específico.
 
-> ⚠️ **Important**: Before implementing the conversion component, please consult with technical support to determine if it's needed for your specific use case.
+Você também precisará adicionar um componente à página `OrderPlaced` para rastrear eventos de conversão.
 
-You will also need to add a component to the `OrderPlaced` page to track conversion events.
+1. Adicione o `vtex-ads-conversion` ao arquivo de configuração da página Order Placed `store/blocks/orderplaced.jsonc`.
 
-1. Add the `vtex-ads-conversion` to the configuration file of the Order Placed page `store/blocks/orderplaced.jsonc`.
-
-> The file name may vary depending on the theme if it has been customized.
+> O nome do arquivo pode variar dependendo do tema se ele foi personalizado.
 
 ```json
 {

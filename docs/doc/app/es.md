@@ -1,157 +1,174 @@
-# vtex-ads-app
+# VTEX Ads APP
 
-La aplicación VTEX Ads proporciona componentes para implementar Retail Media en una tienda Vtex.
+Esta app te permite mostrar anuncios en tiendas VTEX de manera simple y configurable. Ofrece componentes listos para usar que renderizan banners, carruseles de productos patrocinados y ubicaciones de marcas patrocinadas en áreas estratégicas de tu tienda.
 
-La aplicación tiene campos de configuración para insertar el ID del publicador y el ID de la marca si es necesario. Los componentes shelf, banner y sponsored-brands permiten algunas ediciones a través del site editor. Las mismas ediciones también se pueden hacer mediante declaración de bloques. Los valores del site editor sobrescriben los valores declarados en el bloque.
+Aunque esta app está diseñada para funcionar perfectamente con el VTEX Site Editor (CMS), la configuración inicial requiere un desarrollador. Los bloques de anuncios deben declararse primero en el código del tema de la tienda antes de estar disponibles en el Site Editor, donde las configuraciones visuales y de comportamiento pueden ajustarse según sea necesario.
 
-## Install
+## Modo de Desarrollo
 
----
+> 🚧 `vtex use vtexads`
 
-Para más detalles sobre la instalación, visite: [la documentación](https://vtex-ads.readme.io/reference/vtex-ads-app-install-es)
+Toda la implementación debe realizarse en el entorno de desarrollo. Usa el workspace vtexads para pruebas. Después de la validación, publícalo en el entorno master de la tienda.
 
-## Bloques disponibles
+## Instalación
 
----
+La instalación involucra los siguientes pasos:
 
-| Bloque                     | Descripción                                                                                                                                               |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `vtex-ads-banner`          | Componente para renderizar banners patrocinados según el contexto de la página.                                                                           |
-| `vtex-ads-sponsored-brands`| Componente para renderizar anuncios de marcas patrocinadas según el contexto de la página.                                                               |
-| `vtex-ads-shelf`           | Componente para renderizar un carrusel de productos patrocinados según el contexto de la página.                                                          |
-| `vtex-ads-pixel-event`     | Componente para rastrear eventos de productos (clics, impresiones, etc.) dentro de las tarjetas de producto.                                            |
-| `vtex-ads-conversion`      | Componente para gestionar los eventos de conversión.                                                                                                      |
+### 1. Instalar la App vía VTEX CLI
 
-### Propiedades de los bloques
+```bash
+vtex install vtex.vtex-ads
+```
 
----
+### 2. Declarar la dependencia en manifest.json
+Agrega la app como dependencia del tema en el archivo `manifest.json`.
 
-Las propiedades de los bloques pueden definirse a través del editor de sitios o directamente en la declaración del bloque en el tema. La prioridad se dará a los datos ingresados en el editor de sitios.
+```json
+{
+  "dependencies": {
+    "vtex.vtex-ads": "0.x"
+  }
+}
+```
+
+### 3. Vincular el tema
+Vincula el tema para ver los cambios. `vtex link`
+
+### 4. Configurar la app
+
+Accede al panel de administración de tu tienda y configura:
+- Publisher ID (requerido)
+- Brand ID (opcional para editores multi-marca)
+
+> ⚙️ La configuración también se puede hacer vía enlace directo:  
+> `https://{{workspace}}--{{account}}.myvtex.com/admin/apps/vtex.vtex-ads@0.0.1/setup`  
+>  
+> ⚠️ Este enlace puede variar dependiendo del **workspace** o **versión de la app**.
+
+Alternativamente, puedes acceder a la configuración manualmente desde el VTEX Admin:
+
+1. Ve al menú lateral y haz clic en **Apps**.
+2. Luego selecciona **Mis Apps**.
+3. Busca **VTEX Ads**.
+4. Haz clic en la app para acceder a su página de configuración.
+
+## Componentes Disponibles
+
+1. `vtex-ads-banner`  
+   Este componente es responsable de solicitar, mostrar y gestionar eventos relacionados con anuncios tipo banner. Mostrará un banner en la ubicación designada.
+2. `vtex-ads-shelf`  
+   Este componente es responsable de solicitar, mostrar y gestionar eventos relacionados con anuncios tipo producto. Renderiza una lista de productos patrocinados usando componentes nativos de VTEX.  
+   Para asegurar que el estilo de tu tema y las reglas de negocio se preserven, pasa un bloque personalizado `list-context.product-list-static` para envolver el estante, y luego usa la tarjeta de producto de tu tema (ej., `product-summary.shelf`) dentro de él.  
+   Consulta la sección de ejemplos de uso para la estructura correcta del bloque.
+3. `vtex-ads-sponsored-brands`  
+   Este componente es responsable de mostrar anuncios de marcas patrocinadas.
+4. `vtex-ads-pixel-event`  
+   Este componente debe usarse dentro de las tarjetas de producto para escuchar eventos de producto (clics, impresiones, etc.).
+5. `vtex-ads-conversion`  
+   Este componente es responsable de gestionar eventos de conversión. **Por favor consulta con soporte técnico antes de implementar este componente.**
+
+| Para más información, visita la página de componentes. Allí puedes encontrar documentación específica para cada componente y las propiedades que reciben a través de propiedades de bloque o vía site editor.
+
+## Propiedades de Bloque
+
+Las propiedades de bloque pueden definirse ya sea a través del site editor o directamente en la declaración del bloque en el tema. Se dará prioridad a los datos ingresados en el site editor.
 
 ## VTEX Ads Banner
 
----
-
 `vtex-ads-banner`
 
-Este componente renderiza banners en la pantalla. Maneja el contexto de la página y consulta el servidor de anuncios de Newtail para verificar si hay banners disponibles.
+Este componente renderiza banners en pantalla. Maneja el contexto de la página y consulta el servidor de anuncios para verificar si hay banners disponibles.
 
 #### Propiedades vía bloque `isLayout: true`
 
-Propiedades disponibles solo en la definición `json` del bloque dentro del tema.
+Propiedades proporcionadas solo en la definición `json` del bloque dentro del tema.
 
-| Nombre de la propiedad | Tipo     | Valor por defecto          | Descripción                                                                                                                                                                                   |
-| ---------------------- | -------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `placementName`        | `string` | `placement_banner_default` | Nombre del placement utilizado en la consulta. Por defecto, se utilizará 'placement_banner_default'. Prefiera el nombre registrado en la plataforma de anuncios.                              |
-| `size`                 | `string` | `banner`                   | Tamaño de la imagen que se solicitará. Mismo valor registrado en la plataforma de retail media.                                                                                               |
-| `sizeMobile`           | `string` | `null`                     | Tamaño de la imagen que se solicitará cuando se vea en dispositivos móviles. Mismo valor registrado en la plataforma de retail media. Si no se proporciona, se utilizará el valor de desktop. |
-| `quantity`             | `number` | `1`                        | Cantidad de anuncios solicitados.                                                                                                                                                             |
-| `categoryName`         | `string` | `null`                     | Nombre de la categoría en caso de que desee forzar una segmentación.                                                                                                                          |
+| Prop name       | Type     | Default value              | Description                                                                                                                                                    |
+| --------------- | -------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `placementName` | `string` | `placement_banner_default` | Nombre del placement usado en la consulta. Por defecto, se usará 'placement_banner_default'. Prefiere el nombre registrado en la plataforma de anuncios.       |
+| `size`          | `string` | `banner`                   | Tamaño de imagen a solicitar. Mismo valor registrado en la plataforma de retail media.                                                                         |
+| `sizeMobile`    | `string` | `null`                     | Tamaño de imagen a solicitar cuando se ve en dispositivos móviles. Mismo valor registrado en la plataforma de retail media. Si no se proporciona, se usará el valor de escritorio. |
+| `quantity`      | `number` | `1`                        | Cantidad de anuncios solicitados.                                                                                                                             |
+| `categoryName`  | `string` | `null`                     | Nombre de categoría si quieres forzar segmentación.                                                                                                            |
 
-#### Propiedades vía editor de sitio
+#### Propiedades vía site editor
 
-Propiedades disponibles en el editor de sitio.
+Propiedades proporcionadas en el site editor.
 
-| Nombre de la propiedad | Tipo      | Valor por defecto | Descripción                                                                                                                                                                                   |
-| ---------------------- | --------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `active`               | `boolean` | `true`            | Indica si el placement está activo.                                                                                                                                                           |
-| `placementNameAdmin`   | `string`  | `null`            | Nombre del placement utilizado en la consulta.                                                                                                                                                |
-| `sizeAdmin`            | `string`  | `null`            | Tamaño de la imagen que se solicitará. Mismo valor registrado en la plataforma de retail media.                                                                                               |
-| `sizeMobileAdmin`      | `string`  | `null`            | Tamaño de la imagen que se solicitará cuando se vea en dispositivos móviles. Mismo valor registrado en la plataforma de retail media. Si no se proporciona, se utilizará el valor de desktop. |
-| `quantityAdmin`        | `number`  | `null`            | Cantidad de anuncios solicitados.                                                                                                                                                             |
-| `categoryNameAdmin`    | `string`  | `null`            | Nombre de la categoría en caso de que desee forzar una segmentación.                                                                                                                          |
+| Prop name            | Type      | Default value | Description                                                                                                                                                    |
+| -------------------- | --------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `active`             | `boolean` | `true`        | Indica si el placement está activo.                                                                                                                            |
+| `placementNameAdmin` | `string`  | `null`        | Nombre del placement usado en la consulta.                                                                                                                     |
+| `sizeAdmin`          | `string`  | `null`        | Tamaño de imagen a solicitar. Mismo valor registrado en la plataforma de retail media.                                                                         |
+| `sizeMobileAdmin`    | `string`  | `null`        | Tamaño de imagen a solicitar cuando se ve en dispositivos móviles. Mismo valor registrado en la plataforma de retail media. Si no se proporciona, se usará el valor de escritorio. |
+| `quantityAdmin`      | `number`  | `null`        | Cantidad de anuncios solicitados.                                                                                                                             |
+| `categoryNameAdmin`  | `string`  | `null`        | Nombre de categoría si quieres forzar segmentación.                                                                                                            |
 
 ## VTEX Ads Sponsored Brands
 
----
-
 `vtex-ads-sponsored-brands`
 
-Este componente renderiza anuncios de marcas patrocinadas en la pantalla. Maneja el contexto de la página y consulta el servidor de anuncios para verificar si hay anuncios de marcas patrocinadas disponibles.
+Este componente renderiza anuncios de marcas patrocinadas en pantalla. Maneja el contexto de la página y consulta el servidor de anuncios para verificar si hay anuncios de marcas patrocinadas disponibles.
 
 #### Propiedades vía bloque `isLayout: true`
 
 Propiedades disponibles solo en la definición del bloque.
 
-| Nombre de la Propiedad | Tipo     | Default value              | Descripción                                                                                                                                                    |
-| ---------------------- | -------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `placementName`        | `string` | `placement_brands_default` | Nombre del placement usado en la consulta. Por defecto, se utilizará 'placement_brands_default'. Prefiera el nombre registrado en la plataforma de anuncios.   |
-| `size`                 | `string` | `banner`                   | Tamaño de la imagen que se solicitará. Mismo valor registrado en la plataforma de retail media.                                                                |
-| `sizeMobile`           | `string` | `null`                     | Tamaño de la imagen que se solicitará cuando se vea en dispositivos móviles. Mismo valor registrado en la plataforma de retail media. Si no se proporciona, se utilizará el valor de desktop. |
-| `categoryName`         | `string` | `null`                     | Nombre de la categoría en caso de que desee forzar una segmentación.                                                                                           |
+| Prop name       | Type     | Default value              | Description                                                                                                                                                    |
+| --------------- | -------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `placementName` | `string` | `placement_brands_default` | Nombre del placement usado en la consulta. Por defecto, se usará 'placement_brands_default'. Prefiere el nombre registrado en la plataforma de anuncios.       |
+| `size`          | `string` | `banner`                   | Tamaño de imagen a solicitar. Mismo valor registrado en la plataforma de retail media.                                                                         |
+| `sizeMobile`    | `string` | `null`                     | Tamaño de imagen a solicitar cuando se ve en dispositivos móviles. Mismo valor registrado en la plataforma de retail media. Si no se proporciona, se usará el valor de escritorio. |
+| `categoryName`  | `string` | `null`                     | Nombre de categoría si quieres forzar segmentación.                                                                                                            |
 
-#### Propiedades vía editor de sitios
+#### Propiedades vía site editor
 
-Propiedades disponibles en el editor de sitios.
+Propiedades disponibles en el site editor.
 
-| Nombre de la Propiedad | Tipo      | Default value | Descripción                                                                                                                                                    |
-| ---------------------- | --------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `active`               | `boolean` | `true`        | Indica si el placement está activo.                                                                                                                           |
-| `placementNameAdmin`   | `string`  | `null`        | Nombre del placement usado en la consulta.                                                                                                                    |
-| `sizeAdmin`            | `string`  | `null`        | Tamaño de la imagen que se solicitará. Mismo valor registrado en la plataforma de retail media.                                                               |
-| `sizeMobileAdmin`      | `string`  | `null`        | Tamaño de la imagen que se solicitará cuando se vea en dispositivos móviles. Mismo valor registrado en la plataforma de retail media. Si no se proporciona, se utilizará el valor de desktop. |
-| `categoryNameAdmin`    | `string`  | `null`        | Nombre de la categoría en caso de que desee forzar una segmentación.                                                                                          |
+| Prop name            | Type      | Default value | Description                                                                                                                                                    |
+| -------------------- | --------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `active`             | `boolean` | `true`        | Indica si el placement está activo.                                                                                                                            |
+| `placementNameAdmin` | `string`  | `null`        | Nombre del placement usado en la consulta.                                                                                                                     |
+| `sizeAdmin`          | `string`  | `null`        | Tamaño de imagen a solicitar. Mismo valor registrado en la plataforma de retail media.                                                                         |
+| `sizeMobileAdmin`    | `string`  | `null`        | Tamaño de imagen a solicitar cuando se ve en dispositivos móviles. Mismo valor registrado en la plataforma de retail media. Si no se proporciona, se usará el valor de escritorio. |
+| `categoryNameAdmin`  | `string`  | `null`        | Nombre de categoría si quieres forzar segmentación.                                                                                                            |
 
-## VTEX Ads Pixel Event
-
----
-
-`vtex-ads-pixel-event`
-
-Este componente debe ser usado dentro de las tarjetas de producto para escuchar eventos de productos (clics, impresiones, etc.). Permite el rastreo adecuado de las interacciones del usuario con los productos.
-
-#### Propiedades vía bloque `isLayout: true`
-
-Propiedades disponibles solo en la definición del bloque.
-
-| Nombre de la Propiedad | Tipo     | Default value | Descripción                                        |
-| ---------------------- | -------- | ------------- | -------------------------------------------------- |
-| `placementName`        | `string` | `products`    | Nombre del placement usado en la consulta.         |
-| `categoryName`         | `string` | `null`        | Nombre de la categoría en caso de que desee forzar una segmentación. |
-
-#### Propiedades vía editor de sitios
-
-Propiedades disponibles en el editor de sitios.
-
-| Nombre de la Propiedad | Tipo     | Default value | Descripción                                        |
-| ---------------------- | -------- | ------------- | -------------------------------------------------- |
-| `placementNameAdmin`   | `string` | `null`        | Nombre del placement usado en la consulta.         |
-| `categoryNameAdmin`    | `string` | `null`        | Nombre de la categoría en caso de que desee forzar una segmentación. |
-
-### VTEX Ads Shelf
-
----
+## VTEX Ads Shelf
 
 `vtex-ads-shelf`
 
-Este componente monta una estantería con los SKUs patrocinados. Toma el contexto de la página y consulta el servidor de anuncios Newtail para obtener los SKUs patrocinados. Tras el resultado, se realiza una consulta en el catálogo de la tienda para construir la estantería de productos.
+Este componente crea un estante con SKUs patrocinados. Toma el contexto de la página y consulta el servidor de anuncios para recuperar SKUs patrocinados. Después del resultado, se hace una consulta al catálogo de la tienda para construir el estante de productos.
 
-#### Bloque propiedades `isLayout: true`
+#### Props del bloque `isLayout: true`
 
 Propiedades disponibles solo en la definición del bloque.
 
-| Nombre de la propiedad | Tipo     | Default value               | Descripción                                                                                                                                                   |
-| ---------------------- | -------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `quantity`             | `number` | `20`                        | Cantidad de anuncios solicitados.                                                                                                                             |
-| `placementName`        | `string` | `placement_product_default` | Nombre del placement usado en la consulta. Por defecto, se utilizará 'placement_product_default'. Prefiera el nombre registrado en la plataforma de anuncios. |
-| `categoryName`         | `string` | `null`                      | Nombre de la categoría si se desea forzar una segmentación.                                                                                                   |
+| Prop name       | Type     | Default value               | Description                                                                                                                            |
+| --------------- | -------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `quantity`      | `number` | `20`                        | Número de anuncios solicitados.                                                                                                        |
+| `placementName` | `string` | `placement_product_default` | Nombre del placement usado en la consulta. Por defecto, se usará 'placement_product_default'. Prefiere el nombre registrado en la plataforma de anuncios. |
+| `categoryName`  | `string` | `null`                      | Nombre de categoría si quieres forzar segmentación.                                                                                    |
 
-#### Site editor propiedades
+#### Props del site editor
 
-Propiedades disponibles en el editor de sitios.
+Propiedades disponibles en el site editor.
 
-| Nombre de la propiedad | Tipo      | Default value | Descripción                                                 |
-| ---------------------- | --------- | ------------- | ----------------------------------------------------------- |
-| `active`               | `boolean` | `true`        | Indica si el placement está activo.                         |
-| `quantityAdmin`        | `number`  | `null`        | Cantidad de anuncios solicitados.                           |
-| `placementNameAdmin`   | `string`  | `null`        | Nombre del placement usado en la consulta.                  |
-| `categoryNameAdmin`    | `string`  | `null`        | Nombre de la categoría si se desea forzar una segmentación. |
+| Prop name            | Type     | Default value | Description                                        |
+| -------------------- | -------- | ------------- | -------------------------------------------------- |
+| `quantityAdmin`      | `number` | `null`        | Número de anuncios solicitados.                   |
+| `placementNameAdmin` | `string` | `null`        | Nombre del placement usado en la consulta.         |
+| `categoryNameAdmin`  | `string` | `null`        | Nombre de categoría si quieres forzar segmentación. |
 
+## VTEX Ads Pixel Event
 
-### VTEX Ads Conversion
+`vtex-ads-pixel-event`
+
+Este componente debe usarse dentro de las tarjetas de producto para escuchar eventos de producto (clics, impresiones, etc.). Permite el seguimiento adecuado de las interacciones del usuario con los productos.
+
+## VTEX Ads Conversion
 
 `vtex-ads-conversion`
 
-Este componente es responsable de enviar datos de pedidos de la tienda a la plataforma de anuncios. Se utiliza cuando no hay una integración de API haciendo esto.
+Este componente es responsable de enviar datos de pedidos de la tienda a la plataforma de anuncios. Se usa cuando no hay integración de API haciendo esto.
 
-> ⚠️ **Importante**: Antes de implementar el componente de conversión, consulta con el soporte técnico para determinar si es necesario para tu caso de uso específico.
+> ⚠️ **Importante**: Antes de implementar el componente de conversión, por favor consulta con soporte técnico para determinar si es necesario para tu caso de uso específico.

@@ -1,134 +1,224 @@
-# vtex-ads-app
+# VTEX Ads APP
 
-O aplicativo VTEX Ads tem a finalidade de fornecer componentes para implementar Retail Media em uma loja Vtex.
+Este é um **Storefront app** que permite exibir anúncios em lojas VTEX de forma simples e configurável. Ele oferece componentes prontos para uso que renderizam banners, carrosséis de produtos patrocinados e posicionamentos de marcas patrocinadas em áreas estratégicas da sua loja.
 
-O aplicativo tem campos de configuração para inserir o publisher id e brand id se necessário. Os componentes shelf, banner e sponsored-brands possibilitam algumas edições via site editor. As mesmas edições também poderão ser feitas via declaração de bloco. Os valores do site editor sobrepõem os valores declarados no bloco.
+> 📚 **Documentação VTEX IO**: Para mais informações sobre desenvolvimento de Storefront apps, consulte a [documentação oficial da VTEX](https://developers.vtex.com/docs/guides/vtex-io-documentation-1-developing-storefront-apps-using-react-and-vtex-io).
 
-## Install
+Embora este app seja projetado para funcionar perfeitamente com o VTEX Site Editor (CMS), a configuração inicial requer um desenvolvedor. Os blocos de anúncios devem primeiro ser declarados no código do tema da loja antes de ficarem disponíveis no Site Editor, onde as configurações visuais e comportamentais podem então ser ajustadas conforme necessário.
 
----
+## Pré-requisitos
 
-Para mais detalhes sobre a instalação no tema, acesse: [a documentação](https://vtex-ads.readme.io/reference/vtex-ads-app-install-pt)
+Antes de começar a implementação, certifique-se de ter:
 
-## Blocos disponíveis
+- **VTEX CLI** instalado e configurado
+- **Acesso ao store-theme** da loja (código do tema)
+- **Permissões de desenvolvedor** na conta VTEX
 
----
+> 📚 Para mais informações sobre o VTEX CLI, consulte a [documentação oficial da VTEX](https://developers.vtex.com/docs/guides/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
 
-| Bloco                      | Descrição                                                                                                                            |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `vtex-ads-banner`          | Componente para renderizar banners patrocinados de acordo com o contexto da página.                                                  |
-| `vtex-ads-sponsored-brands`| Componente para renderizar anúncios de marcas patrocinadas de acordo com o contexto da página.                                        |
-| `vtex-ads-shelf`           | Componente para renderizar uma carrossel de produtos patrocinados de acordo com o contexto da página.                                |
-| `vtex-ads-pixel-event`     | Componente para rastrear eventos de produtos (cliques, impressões, etc.) dentro dos cards de produto.                                |
-| `vtex-ads-conversion`      | Componente para tratar os eventos de conversão.                                                                                      |
+## Modo de desenvolvimento
 
-## Propriedades dos blocos
+> 🚧 `vtex use vtexads`
 
----
+Toda implementação deve ser feita no ambiente de desenvolvimento. [Use o workspace](https://developers.vtex.com/docs/guides/vtex-io-documentation-workspace) vtexads para o desenvolvimento. Após validação, publique no ambiente master da loja.
 
-As propriedades dos blocos podem ser definidas pelo site-editor ou diretamente pela declaração do bloco no tema. A prioridade será para os dados inseridos no site-editor.
+## Instalação
 
-## VTEX Ads Banner
+A instalação envolve os seguintes passos:
+1. Instalar o App via VTEX CLI
+2. Declarar a dependência no manifest.json no store-theme
+3. Linkar o tema
+4. Configurar o app
+5. Exibir anúncios
 
----
+### 1. Instalar o App via VTEX CLI
 
-`vtex-ads-banner`
+```bash
+vtex install vtex.vtex-ads
+```
 
-Este componente renderiza banners na tela. Ele pega o contexto da página e consulta o servidor de anúncios Newtail para verificar se há banners disponíveis.
+### 2. Declarar a dependência no manifest.json
+Adicione o app VTEX ADS como dependência do store-theme no arquivo `manifest.json`.
 
-#### Propriedades via bloco `isLayout: true`
+```json
+{
+  "dependencies": {
+    "vtex.vtex-ads": "0.x"
+  }
+}
+```
 
-Propriedades disponibilizadas apenas na definição do bloco.
+### 3. Linkar o tema
+Linke o tema para ver as mudanças no ambiente de desenvolvimento. `vtex link`
 
-| Prop name       | Type     | Default value | Description                                                                                        |
-| --------------- | -------- | ------------- | -------------------------------------------------------------------------------------------------- |
-| `quantity`      | `number` | `1`           | Quantidade de anúncios solicitados.                                                                |
-| `placementName` | `string` | `banner`      | Nome do placement usado na consulta.                                                               |
-| `size`          | `string` | `desktop`     | Tamanho da imagem que deverá ser solicitado. Mesmo valor cadastrado na plataforma de retail media. |
-| `categoryName`  | `string` | `null`        | Nome da categoria caso deseje forçar uma segmentação                                               |
+### 4. Configurar o app
 
-#### Propriedades via site editor
+Neste momento, temos um passo importante para exibirmos anúncios. Acesse o painel administrativo da sua loja e configure:
+- Publisher ID (obrigatório)
+- Brand ID (opcional para publishers multi-marca)
 
-Propriedades disponibilizadas no site editor.
+Você pode acessar a configuração manualmente pelo VTEX Admin:
 
-| Prop name            | Type     | Default value | Description                                                                                        |
-| -------------------- | -------- | ------------- | -------------------------------------------------------------------------------------------------- |
-| `quantityAdmin`      | `number` | `null`        | Quantidade de anúncios solicitados.                                                                |
-| `placementNameAdmin` | `string` | `null`        | Nome do placement usado na consulta.                                                               |
-| `sizeAdmin`          | `string` | `null`        | Tamanho da imagem que deverá ser soliticado. Mesmo valor cadastrado na plataforma de retail media. |
-| `categoryNameAdmin`  | `string` | `null`        | Nome da categoria caso deseje forçar uma segmentação                                               |
+1. Vá ao menu lateral e clique em **Apps**.
+2. Em seguida, selecione **Meus Apps**.
+3. Procure por **VTEX Ads**.
+4. Clique no app para acessar sua página de configuração.
 
-## VTEX Ads Search
+> ⚙️ A configuração também pode ser feita via link direto:  
+> `https://{{workspace}}--{{account}}.myvtex.com/admin/apps/vtex.vtex-ads@0.0.1/setup`  
+>  
+> ⚠️ Este link pode variar dependendo do **workspace** ou **versão do app**.
 
----
+### 5. Lidando com os componentes
+Agora você precisa declarar os componentes nas páginas do seu tema. Os componentes são dividos em 2 classes: exibição de anúncios e notificação de eventos.
 
-`vtex-ads-sponsored-brands`
+⚠️ Para mais detalhes, consulte a seção de exemplos.
 
-Este componente deve ser chamado sempre dentro do provedor da busca. Ele verifica os resultados da busca, reúne os SKUs e consulta no servidor de anúncios Newtail quais estão patrocinados. Após o resultado, uma tag indicando patrocínio é adicionada ao item correspondente.
+#### Componentes Disponíveis (exibição e notificação de eventos)
 
-#### Propriedades via bloco `isLayout: true`
+1. Exibição
+    1. `vtex-ads-banner`  
+    Exibe banners patrocinados no local configurado. Este componente funciona de forma autônoma e não requer filhos.
 
-Propriedades disponibilizadas apenas na definição do bloco.
+    2. `vtex-ads-shelf`  
+    Exibe produtos patrocinados em formato de prateleira. Para funcionar corretamente, é necessário receber os blocos `list-context.product-list-static`, `slider-layout` e o card de produto do tema (`product-summary.shelf`).  
+    > Essa estrutura garante liberdade para reaproveitar estilos e regras de negócio já aplicados no tema.
 
-| Prop name              | Type          | Default value                                                             | Description                                                                                           |
-| ---------------------- | ------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `quantity`             | `number`      | `20`                                                                      | Quantidade de anúncios solicitados.                                                                   |
-| `placementName`        | `string`      | `search`                                                                  | Nome do placement usado na consulta.                                                                  |
-| `tagText`              | `string`      | `Patrocinado`                                                             | Texto que será usado na tag. Por padrão, será patrocinado com tradução automática.                    |
-| `tagClassname`         | `string`      | `newtail-sponsored-tag`                                                   | Classe que será adicionada ao elemento HTML da tag.                                                   |
-| `tagPosition`          | `[start,end]` | `start`                                                                   | Indica se a tag estará no começo ou no final do card de produto.                                      |
-| `parentSearchSelector` | `string`      | `.vtex-search-result-3-x-searchResultContainer #gallery-layout-container` | Indica o container que envolve o resultado da busca. Usamos o padrão do _store-theme_.                |
-| `onlyFirstSKU`         | `boolean`     | `false`                                                                   | Indica se devemos olhar apenas o SKU principal ou todos SKUs atrelados.                               |
-| `sponsoredSkusAtTop`   | `boolean`     | `true`                                                                    | Indica se devemos reordenar o resultado de busca. Essa opção não deve ser usada com rolagem infinita. |
+    3. `vtex-ads-sponsored-brands`  
+    Exibe marcas patrocinadas em carrossel. Também requer os blocos `list-context.product-list-static`, `slider-layout` e o card de produto do tema (ex: `product-summary.shelf`).
 
-#### Propriedades via site editor
+2. Notificação de eventos
+    1. `vtex-ads-pixel-event`  
+    Este componente deve ser usado dentro dos cards de produto para escutar eventos de produto (cliques, impressões, etc.).
+    2. `vtex-ads-conversion`  
+    Este componente é responsável por gerenciar eventos de conversão.   
+    **⚠️ Por favor, consulte o suporte técnico antes de implementar este componente.**
+ 
 
-Propriedades disponibilizadas no site editor.
+### Exibindo Anúncios
 
-| Prop name                   | Type          | Default value | Description                                                                            |
-| --------------------------- | ------------- | ------------- | -------------------------------------------------------------------------------------- |
-| `quantityAdmin`             | `number`      | `null`        | Quantidade de anúncios solicitados.                                                    |
-| `placementNameAdmin`        | `string`      | `null`        | Nome do placement usado na consulta.                                                   |
-| `tagTextAdmin`              | `string`      | `null`        | Texto que será usado na tag. Por padrão, será patrocinado com tradução automática.     |
-| `tagClassnameAdmin`         | `string`      | `null`        | Classe que será adicionada ao elemento HTML da tag.                                    |
-| `tagPositionAdmin`          | `[start,end]` | `null`        | Indica se a tag estará no começo ou no final do card de produto.                       |
-| `parentSearchSelectorAdmin` | `string`      | `null`        | Indica o container que envolve o resultado da busca. Usamos o padrão do _store-theme_. |
-| `onlyFirstSKUAdmin`         | `boolean`     | `null`        | Indica se devemos olhar apenas o SKU principal ou todos SKUs atrelados.                |
+**⚠️ É essencial ter pelo menos um entendimento básico da declaração de blocos VTEX.**
 
-## VTEX Ads Shelf
+> 📁 **Exemplos Completos**: Verifique a pasta `examples/` para exemplos de implementação padronizados, mais robustos e completos que cobrem diferentes cenários e casos de uso.
 
----
+Adicione os componentes correspondentes às páginas que exibirão os anúncios e faça os ajustes visuais necessários.
 
-`vtex-ads-shelf`
+#### 📄 Exemplos de Uso
+Use a página de busca como exemplo.  
+`store/blocks/search/`
+> Lembre-se, o nome do arquivo pode variar dependendo do tema se ele foi personalizado.
 
-Este componente monta uma prateleira com os SKUs patrocinados. Ele pega o contexto da página e consulta o servidor de anúncios Newtail para obter SKUs patrocinados. Após o resultado, é feita uma consulta no catálogo da loja para montar a prateleira de produtos.
+1. Banner
+    ```json
+        {
+          "vtex-ads-banner#search-top": {
+              "title": "VTEX Ads - Banner top PDP",
+              "props": {
+              "placementName": "site_search_top_banner", // {canal}_{contexto}_{posição}_{tipo}
+              "size": "1280x176", // Mesmo tamanho cadastrado no admin de ads
+              "sizeMobile": "634x300" // Mesmo tamanho cadastrado no admin de ads
+              }
+          },
+          "store.search": {
+              "blocks": [
+              "vtex-ads-banner#search-top",
+              "search-result-layout"
+              ]
+          }
+        }
+    ```
 
-#### Propriedades via bloco `isLayout: true`
+2. Produtos patrocinados
+> Para mantermos a originalidade e regras de negócio do tema, as shelfs recebem alguns componentes adicionais: `list-context.product-list-static`, `slider-layout` e `product-summary.shelf`.
+    ```json
+        {
+          "list-context.product-list-static#vtex-ads": {
+            "blocks": ["product-summary.shelf#product-custom-ads"],
+            "children": ["slider-layout#vtex-ads"],
+            "title": "VTEX Ads - Product shelf - Wrapper context"
+          },
+          "vtex-ads-shelf#pdp-middle": {
+            "title": "VTEX Ads - Product shelf middle PDP",
+            "blocks": [
+              "rich-text#vtex-ads-sponsored-title", // Optional
+              "list-context.product-list-static#vtex-ads"
+            ],
+            "props": {
+              "placementName": "site_search_topproduct", // {channel}_{context}_ {position}_{type}
+              "quantity": 10 // Optional, default is 20
+            }
+          },
+          "store.search": {
+              "blocks": [
+              "vtex-ads-shelf#pdp-middle",
+              "search-result-layout"
+              ]
+          }
+        }
+    ```
 
-Propriedades disponibilizadas apenas na definição do bloco.
 
-| Prop name       | Type     | Default value | Description                                          |
-| --------------- | -------- | ------------- | ---------------------------------------------------- |
-| `quantity`      | `number` | `20`          | Quantidade de anúncios solicitados.                  |
-| `placementName` | `string` | `products`    | Nome do placement usado na consulta.                 |
-| `categoryName`  | `string` | `null`        | Nome da categoria caso deseje forçar uma segmentação |
+3. Marcas patrocinadas (sponsored brands)
+> Para mantermos a originalidade e regras de negócio do tema, as shelfs recebem alguns componentes adicionais: `list-context.product-list-static`, `slider-layout` e `product-summary.shelf`.
+    ```json
+        {
+          "list-context.product-list-static#vtex-ads": {
+            "blocks": ["product-summary.shelf#product-custom-ads"],
+            "children": ["slider-layout#vtex-ads"],
+            "title": "VTEX Ads - Product shelf - Wrapper context"
+          },
+          "vtex-ads-sponsored-brands#search-top": {
+            "title": "VTEX Ads - Sponsored brand",
+            "blocks": ["list-context.product-list-static#vtex-ads"],
+            "props": {
+              "placementName": "site_search_top_sb", // {channel}_{context}_ {position}_{type}
+              "sizeMobile": "450x150", // Same size registered in the ad platform
+              "size": "450x225", // Same size registered in the ad platform
+              "hideHeader": true // Optional
+            }
+          },
+          "store.search": {
+              "blocks": [
+              "vtex-ads-sponsored-brands#search-top",
+              "search-result-layout"
+              ]
+          }
+        }
+    ```
 
-#### Propriedades via editor
+### Notificando Eventos
 
-Propriedades disponibilizadas no site editor.
+Para rastrear eventos de produto (cliques, impressões, etc.), adicione o componente `vtex-ads-pixel-event` dentro dos seus cards de produto.
 
-| Prop name            | Type     | Default value | Description                                          |
-| -------------------- | -------- | ------------- | ---------------------------------------------------- |
-| `quantityAdmin`      | `number` | `null`        | Quantidade de anúncios solicitados.                  |
-| `placementNameAdmin` | `string` | `null`        | Nome do placement usado na consulta.                 |
-| `categoryNameAdmin`  | `string` | `null`        | Nome da categoria caso deseje forçar uma segmentação |
+```json
+{
+  "product-summary.shelf": {
+    "children": [
+      "vtex-ads-pixel-event",
+      "product-summary-image",
+      "product-summary-name",
+      "product-summary-price"
+    ]
+  }
+}
+```
 
-## VTEX Ads Conversion
+> O componente `vtex-ads-pixel-event` deve ser posicionado como filho do componente de card de produto para rastrear adequadamente as interações do usuário.
 
----
+### Notificando Conversão
 
-`vtex-ads-conversion`
+> ⚠️ **Importante**: Antes de implementar o componente de conversão, por favor consulte o suporte técnico para determinar se é necessário para o seu caso de uso específico.
 
-Este componente é responsável por enviar dados sobre os pedidos feitos na loja para a plataforma de anúncios. Serve quando não há uma integração de API fazendo isso.
+Você também precisará adicionar um componente à página `OrderPlaced` para rastrear eventos de conversão.
 
-> ⚠️ **Importante**: Antes de implementar o componente de conversão, consulte o suporte técnico para determinar se é necessário para seu caso de uso específico.
+1. Adicione o `vtex-ads-conversion` ao arquivo de configuração da página Order Placed `store/blocks/orderplaced.jsonc`.
+
+> O nome do arquivo pode variar dependendo do tema se ele foi personalizado.
+
+```json
+{
+  "store.orderplaced": {
+    "blocks": ["order-placed", "vtex-ads-conversion"]
+  }
+}
+```

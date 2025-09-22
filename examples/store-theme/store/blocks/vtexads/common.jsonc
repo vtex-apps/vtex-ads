@@ -16,17 +16,20 @@
   /**
    * Product card
    * Optional - If you don't want to customize, use the default card from the theme.
+   * Just an example of how to customize the product card. Should be a copy of your default product card.
    */
-  "product-card-custom#product-custom-ads": {
-    "title": "VTEX Ads - Product card"
-  },
-
-  "flex-layout.row#product-card-ads": {
-    "children": ["product-card-custom#product-custom-ads"]
-  },
-
   "product-summary.shelf#product-custom-ads": {
-    "children": ["flex-layout.row#product-card-ads", "vtex-ads-pixel-event"]
+    "children": [
+      "vtex-ads-pixel-event",
+      "add-to-list-btn#shelf",
+      "flex-layout.row#image",
+      "product-summary-name",
+      "new-price-pbm-shelf",
+      "flex-layout.row#shelf-default-buy"
+    ],
+    "props": {
+      "blockClass": ["shelf-default"]
+    }
   },
 
   /**

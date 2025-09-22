@@ -1,35 +1,26 @@
-Implementação do ecossistema de Retail Media Newtail.
+# VTEX Ads APP
 
-# Sobre a integração
+Este app permite exibir anúncios em lojas VTEX de forma simples e configurável. Oferece componentes prontos para uso que renderizam banners, carrosséis de produtos patrocinados e posicionamentos de marcas patrocinadas em áreas estratégicas da sua loja.
 
-A integração é composta por 2 etapas:  
-**[1] sincronização de catálogo**  
-**[2] implementação da lógica** de manipulação de anúncios e eventos.
+Embora este app seja projetado para funcionar perfeitamente com o VTEX Site Editor (CMS), a configuração inicial requer um desenvolvedor. Os blocos de anúncios devem primeiro ser declarados no código do tema da loja antes de ficarem disponíveis no Site Editor, onde as configurações visuais e comportamentais podem ser ajustadas conforme necessário.
 
-# 1 - Sincronização de catálogo
+## Principais Recursos
 
-Para sincronizarmos o catálogo pode integrar o catálogo via **API** ou via **XML**.
+- **Integração Fácil**: Configuração simples com VTEX CLI
+- **Compatível com Site Editor**: Configuração visual através do CMS da VTEX
+- **Múltiplos Tipos de Anúncios**: Banners, produtos patrocinados e marcas patrocinadas
+- **Rastreamento de Eventos**: Rastreamento integrado de impressões, cliques e conversões
+- **Design Responsivo**: Componentes otimizados para mobile e desktop
+- **Componentes Nativos da VTEX**: Usa componentes nativos de produtos da VTEX para consistência
 
-1. **API** - Gerar chaves de API para leitura do catálogo.
-2. **XML** - Enviar link do XML com padrão Google Shopping.
+## Como Funciona
 
-# 2 - Implementação dos anúncios
+A VTEX Ads APP fornece uma solução completa para implementar retail media em lojas VTEX:
 
-A implementação consiste em desenvolver toda lógica e componentes para exibir anúncios e disparar os eventos: impressão, visualização, clique e conversão.
+1. **Instalação**: Instale o app via VTEX CLI e configure as configurações do editor
+2. **Integração do Tema**: Declare blocos de anúncios no tema da sua loja
+3. **Configuração**: Configure posicionamentos de anúncios e targeting através do painel administrativo
+4. **Exibição**: Os anúncios são renderizados automaticamente baseados no contexto da página e configuração
+5. **Rastreamento**: Os eventos são rastreados automaticamente e enviados para a plataforma de anúncios
 
-> 📘 Como fazer
->
-> Todos os endpoints e payloads necessários constam na nossa documentação nas seções [Requisição de anúncios](https://vtex-ads.readme.io/reference/requisicao-de-anuncios) e [Notificação de eventos](https://vtex-ads.readme.io/reference/notificacao-de-eventos).
-
-> 👍 Extra
->
-> Disponibilizamos um repositório com um exemplo de storefront app para auxiliar o desenvolvimento - VTEX Ads APP VTEX. Ele conta com componentes de banner, carrosel de produtos e tratamento do resultadoo de busca usando componentes nativos VTEX com toda lógica de requisição e disparo de eventos. Se necessário, entre em contato para saber como.
-
-Caso opte pela **implementação Newtail**, teremos alguns passos a mais. Nem todos serão necessários.
-
-1. Criar usuários Newtail para acesso ao VTEX.IO.
-2. Instalação do app no workspace newtail.
-3. Dar acesso ao tema para instalação dos componentes. (ou fazer instalação por conta própria)
-4. Implementação dos componentes do APP no tema.
-5. Validação dos componentes.
-6. Publicação em produção.
+Esta abordagem garante integração perfeita com seu tema de loja existente enquanto fornece capacidades publicitárias poderosas.

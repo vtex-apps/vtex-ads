@@ -4,6 +4,7 @@ import { useSessionData } from '../useSessionData'
 
 type UseAdEvents = () => {
   handleAdsEvents: (props: HandleAdEvents) => void
+  fireEvent: (props: { url: string }) => void
 }
 
 type HandleAdEvents = {
@@ -19,12 +20,12 @@ type FireEventBody =
     }
 
 export const useAdsEvents: UseAdEvents = () => {
-  const { sessionId, userId } = useSessionData()
+  const { userId, getSessionId } = useSessionData()
 
   const sendEvent = useCallback(
-    (finalUrl: string) => {
+    (finalUrl: string, sessionId: string) => {
       const body: FireEventBody = {
-        session_id: sessionId as string,
+        session_id: sessionId,
       } as FireEventBody
 
       if (userId) {
@@ -33,32 +34,40 @@ export const useAdsEvents: UseAdEvents = () => {
 
       navigator.sendBeacon(finalUrl, new URLSearchParams(body))
     },
-    [sessionId, userId]
+    [userId]
   )
 
   const fireEvent = useCallback(
-    ({ url }) => {
-      if (!sessionId) {
-        let retries = 0
-        const maxRetries = 5
-        const interval = setInterval(() => {
-          if (sessionId) {
-            clearInterval(interval)
-            sendEvent(url)
-          }
+    ({ url }: { url: string }) => {
+      const sessionId = getSessionId()
 
-          retries++
-          if (retries >= maxRetries) {
-            clearInterval(interval)
-          }
-        }, 1000)
+      if (sessionId) {
+        sendEvent(url, sessionId)
 
         return
       }
 
-      sendEvent(url)
+      // Each retry reads the session id again: a value captured when the
+      // event was fired would stay empty forever.
+      let retries = 0
+      const maxRetries = 5
+      const interval = setInterval(() => {
+        const retrySessionId = getSessionId()
+
+        if (retrySessionId) {
+          clearInterval(interval)
+          sendEvent(url, retrySessionId)
+
+          return
+        }
+
+        retries++
+        if (retries >= maxRetries) {
+          clearInterval(interval)
+        }
+      }, 1000)
     },
-    [sendEvent, sessionId]
+    [getSessionId, sendEvent]
   )
 
   const handleAdsEvents = useCallback(
@@ -84,5 +93,5 @@ export const useAdsEvents: UseAdEvents = () => {
     [fireEvent]
   )
 
-  return { handleAdsEvents }
+  return { handleAdsEvents, fireEvent }
 }

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Ad events fired before the `VtexRCMacIdv7` cookie exists are sent once it is created, instead of being dropped: each retry now reads the session id again. Banner and Sponsored Brands events use the same retry.
+
 ## [0.0.1] - 2025-09-17
 
 ## [4.0.0] - 2025-09-03

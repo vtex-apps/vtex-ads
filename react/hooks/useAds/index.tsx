@@ -176,23 +176,7 @@ const VTEXAdsProvider: React.FC<VTEXAdsProviderType> = ({
    * @function handleEvents()
    */
 
-  const fireEvent = useCallback(
-    ({ url }) => {
-      const body = {
-        session_id: sessionId,
-      } as {
-        session_id: string
-        user_id: string
-      }
-
-      if (userId) {
-        body.user_id = userId
-      }
-
-      navigator.sendBeacon(url, new URLSearchParams(body))
-    },
-    [sessionId, userId]
-  )
+  const { handleAdsEvents, fireEvent } = useAdsEvents()
 
   /**
    * Handle banner events
@@ -236,8 +220,6 @@ const VTEXAdsProvider: React.FC<VTEXAdsProviderType> = ({
   /**
    * Handle product events
    */
-
-  const { handleAdsEvents } = useAdsEvents()
 
   const handleProductClickOnShelf = useCallback(
     (data: OnProductClickData) => {

@@ -4,6 +4,10 @@ import { useCssHandles } from 'vtex.css-handles'
 import { useAds } from '../../hooks/useAds'
 import { useOnView } from '../../hooks/useOnView'
 import { ImageFixedSize } from '../UI/Image'
+import {
+  VIEWABILITY_MIN_TIME,
+  VIEWABILITY_THRESHOLD,
+} from '../../utils/viewability'
 
 const CSS_HANDLES = ['banner-item', 'banner-image'] as const
 
@@ -42,12 +46,20 @@ const ItemBanner = ({ data }: { data: BannerAd }) => {
     ref: bannerRef,
     onView,
     once: true,
-    initializeOnInteraction: true,
+    threshold: VIEWABILITY_THRESHOLD,
+    minVisibleTime: VIEWABILITY_MIN_TIME,
   })
 
+  // One impression per rendered ad: handleImpression changes identity when the
+  // provider re-renders, which must not send the same impression again.
+  const impressionSentFor = useRef<string | null>(null)
+
   useEffect(() => {
+    if (!adId || impressionSentFor.current === adId) return
+
+    impressionSentFor.current = adId
     handleImpression()
-  }, [handleImpression])
+  }, [adId, handleImpression])
 
   return (
     <div

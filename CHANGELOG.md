@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+### Added
+
+- View events for sponsored products (`vtex-ads-pixel-event` and `product-sponsored-tag`), measured on the product card.
+
+### Changed
+
+- View events follow the IAB viewability standard recommended by VTEX Ads: at least 50% of the ad on screen for at least 1 continuous second, with the page visible. Observation starts when the ad renders instead of after the first scroll or mouse move, so ads seen without any interaction are counted.
+- Sponsored product impressions no longer wait for a scroll or mouse move before being sent.
+- Banner and Sponsored Brands impressions are sent once per rendered ad. Sponsored Brands impressions are only sent when the ad is rendered on the page.
+
 ### Fixed
 
 - Ad events fired before the `VtexRCMacIdv7` cookie exists are sent once it is created, instead of being dropped: each retry now reads the session id again. Banner and Sponsored Brands events use the same retry.

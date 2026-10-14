@@ -12,6 +12,8 @@ interface HookOptions {
   ref: MutableRefObject<HTMLElement | null>
   onView?: (event: IntersectionEvent) => void
   threshold?: number
+  /** Time (ms) the element must stay continuously at or above `threshold`, with the page visible, before `onView` is called */
+  minVisibleTime?: number
   once?: boolean
   bailOut?: boolean
   initializeOnInteraction?: boolean
@@ -26,12 +28,21 @@ const useOnView = ({
   ref,
   onView,
   threshold = 0,
+  minVisibleTime = 0,
   once = false,
   bailOut = false,
   initializeOnInteraction = false,
 }: HookOptions) => {
   const isObserving = useRef(false)
   const didIntersect = useRef(false)
+
+  // Keeps the latest callback without restarting the observer, which would
+  // reset a running visibility timer on every re-render of the caller.
+  const onViewRef = useRef(onView)
+
+  onViewRef.current = onView
+
+  const hasOnView = !!onView
 
   useEffect(() => {
     const initializeObserver = () => {
@@ -41,7 +52,7 @@ const useOnView = ({
         bailOut ||
         isObserving.current ||
         !element ||
-        !onView ||
+        !hasOnView ||
         (once && didIntersect.current)
       ) {
         return () => {}
@@ -49,19 +60,36 @@ const useOnView = ({
 
       isObserving.current = true
 
+      let isVisible = false
+      let lastEntry: IntersectionObserverEntry | null = null
+      let timer: ReturnType<typeof setTimeout> | null = null
+
+      const clearTimer = () => {
+        if (timer) {
+          clearTimeout(timer)
+          timer = null
+        }
+      }
+
       const unobserve = () => {
+        clearTimer()
+
+        if (minVisibleTime > 0) {
+          document.removeEventListener(
+            'visibilitychange',
+            handleVisibilityChange
+          )
+        }
+
         if (isObserving.current) {
           observer.unobserve(element)
           isObserving.current = false
         }
       }
 
-      const observer = new IntersectionObserver(([entry]) => {
-        if (!entry.isIntersecting) {
-          return
-        }
-
-        if (entry.intersectionRatio < threshold) {
+      const notify = (entry: IntersectionObserverEntry) => {
+        // Entries already queued can still be delivered after unobserve()
+        if (once && didIntersect.current) {
           return
         }
 
@@ -70,10 +98,68 @@ const useOnView = ({
         }
 
         didIntersect.current = true
-        onView({ entry, unobserve })
-      })
+        onViewRef.current?.({ entry, unobserve })
+      }
+
+      const startTimer = () => {
+        if (!lastEntry) {
+          return
+        }
+
+        if (minVisibleTime <= 0) {
+          notify(lastEntry)
+
+          return
+        }
+
+        if (timer || document.visibilityState === 'hidden') {
+          return
+        }
+
+        const entry = lastEntry
+
+        timer = setTimeout(() => {
+          timer = null
+          notify(entry)
+        }, minVisibleTime)
+      }
+
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === 'hidden') {
+          clearTimer()
+
+          return
+        }
+
+        if (isVisible) {
+          startTimer()
+        }
+      }
+
+      // The default observer only reports crossings of 0%, so a non-zero
+      // threshold has to be registered to be notified when it is crossed.
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          lastEntry = entry
+          isVisible =
+            entry.isIntersecting && entry.intersectionRatio >= threshold
+
+          if (!isVisible) {
+            clearTimer()
+
+            return
+          }
+
+          startTimer()
+        },
+        threshold > 0 ? { threshold: [0, threshold] } : undefined
+      )
 
       observer.observe(element)
+
+      if (minVisibleTime > 0) {
+        document.addEventListener('visibilitychange', handleVisibilityChange)
+      }
 
       return unobserve
     }
@@ -100,7 +186,15 @@ const useOnView = ({
     }
 
     return initializeObserver()
-  }, [bailOut, initializeOnInteraction, onView, once, ref, threshold])
+  }, [
+    bailOut,
+    hasOnView,
+    initializeOnInteraction,
+    minVisibleTime,
+    once,
+    ref,
+    threshold,
+  ])
 }
 
 export { useOnView }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { useAds } from '../../hooks/useAds'
@@ -13,6 +13,10 @@ import { templateStyles } from './styles/templates'
 import { CSS_HANDLES } from './styles/handles'
 import { useProductQuery } from '../../hooks/useProductQuery'
 import ProductShelf from '../UI/ProductShelf'
+import {
+  VIEWABILITY_MIN_TIME,
+  VIEWABILITY_THRESHOLD,
+} from '../../utils/viewability'
 
 function SponsoredBrands({
   hideHeader,
@@ -47,22 +51,34 @@ function SponsoredBrands({
     handleEvents({ type: 'sponsored_brand', event: 'click' })
   }, [handleEvents])
 
-  useOnView({
-    ref: containerRef,
-    onView,
-    once: true,
-    initializeOnInteraction: true,
-  })
-
-  useEffect(() => {
-    handleImpression()
-  }, [handleImpression])
-
   // Memos
 
   const hasAd = useMemo(() => {
     return !!offers && !!assetsSB
   }, [assetsSB, offers])
+
+  const adId = assetsSB?.ad_id ?? null
+
+  // The observed element only exists once the ad renders, so the observer
+  // starts with it instead of waiting for a user interaction.
+  useOnView({
+    ref: containerRef,
+    onView,
+    once: true,
+    threshold: VIEWABILITY_THRESHOLD,
+    minVisibleTime: VIEWABILITY_MIN_TIME,
+    bailOut: !hasAd,
+  })
+
+  // One impression per rendered ad, sent when it is actually on the page
+  const impressionSentFor = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (!hasAd || !adId || impressionSentFor.current === adId) return
+
+    impressionSentFor.current = adId
+    handleImpression()
+  }, [adId, handleImpression, hasAd])
 
   return (
     <>

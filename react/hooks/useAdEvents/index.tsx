@@ -20,7 +20,7 @@ type FireEventBody =
     }
 
 export const useAdsEvents: UseAdEvents = () => {
-  const { userId, getSessionId } = useSessionData()
+  const { getSessionId, getUserId } = useSessionData()
 
   const sendEvent = useCallback(
     (finalUrl: string, sessionId: string) => {
@@ -28,13 +28,15 @@ export const useAdsEvents: UseAdEvents = () => {
         session_id: sessionId,
       } as FireEventBody
 
+      const userId = getUserId()
+
       if (userId) {
-        body.user_id = userId as string
+        body.user_id = userId
       }
 
       navigator.sendBeacon(finalUrl, new URLSearchParams(body))
     },
-    [userId]
+    [getUserId]
   )
 
   const fireEvent = useCallback(
@@ -49,6 +51,9 @@ export const useAdsEvents: UseAdEvents = () => {
 
       // Each retry reads the session id again: a value captured when the
       // event was fired would stay empty forever.
+      // The interval is not cleared on unmount on purpose: the ad was already
+      // rendered, so the event must still be sent if the shopper navigates
+      // away. It stops by itself after maxRetries.
       let retries = 0
       const maxRetries = 5
       const interval = setInterval(() => {

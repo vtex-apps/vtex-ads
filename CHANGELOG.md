@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-16
+
 ### Added
 
 - View events for sponsored products (`vtex-ads-pixel-event` and `product-sponsored-tag`), measured on the product card.

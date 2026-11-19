@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- `vtex-ads-stories` block: the VTEX Ads Stories carousel (`@vtex/ads-stories`), with add and remove from cart through `vtex.order-items`, a `stories-container` CSS handle, and Site Editor fields for the placement, quantity, timing, active state and appearance (colors, font and corner radius).
+
 ## [0.1.0] - 2026-10-16
 
 ### Added

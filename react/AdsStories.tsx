@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { defineMessages } from 'react-intl'
 // The CJS build by path: the IO bundler (webpack 4) would pick the ESM build
 // through `module`, and Lit's ES2021 syntax there doesn't parse. The CJS
 // build bundles Lit lowered to ES2018.
@@ -205,10 +206,119 @@ function AdsStories(props: Readonly<Props>) {
   )
 }
 
+// The IO builder sends Site Editor only the messages a component declares
+// here: without this, the schema shows raw keys
+const messages = defineMessages({
+  'stories.title': {
+    id: 'admin/vtex-vtex-ads.stories.title',
+    defaultMessage: '',
+  },
+  'common.active.title': {
+    id: 'admin/vtex-vtex-ads.common.active.title',
+    defaultMessage: '',
+  },
+  'common.placementNameAdmin.title': {
+    id: 'admin/vtex-vtex-ads.common.placementNameAdmin.title',
+    defaultMessage: '',
+  },
+  'stories.placement.description': {
+    id: 'admin/vtex-vtex-ads.stories.placement.description',
+    defaultMessage: '',
+  },
+  'stories.quantity.title': {
+    id: 'admin/vtex-vtex-ads.stories.quantity.title',
+    defaultMessage: '',
+  },
+  'stories.quantity.description': {
+    id: 'admin/vtex-vtex-ads.stories.quantity.description',
+    defaultMessage: '',
+  },
+  'stories.slideDuration.title': {
+    id: 'admin/vtex-vtex-ads.stories.slideDuration.title',
+    defaultMessage: '',
+  },
+  'stories.slideDuration.description': {
+    id: 'admin/vtex-vtex-ads.stories.slideDuration.description',
+    defaultMessage: '',
+  },
+  'stories.inactiveAutoplay.title': {
+    id: 'admin/vtex-vtex-ads.stories.inactiveAutoplay.title',
+    defaultMessage: '',
+  },
+  'stories.inactiveAutoplay.description': {
+    id: 'admin/vtex-vtex-ads.stories.inactiveAutoplay.description',
+    defaultMessage: '',
+  },
+  'stories.appearance.title': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.title',
+    defaultMessage: '',
+  },
+  'stories.appearance.description': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.description',
+    defaultMessage: '',
+  },
+  'stories.appearance.fontFamily.title': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.fontFamily.title',
+    defaultMessage: '',
+  },
+  'stories.appearance.fontFamily.description': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.fontFamily.description',
+    defaultMessage: '',
+  },
+  'stories.appearance.colorText.title': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.colorText.title',
+    defaultMessage: '',
+  },
+  'stories.appearance.colorText.description': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.colorText.description',
+    defaultMessage: '',
+  },
+  'stories.appearance.colorMuted.title': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.colorMuted.title',
+    defaultMessage: '',
+  },
+  'stories.appearance.colorMuted.description': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.colorMuted.description',
+    defaultMessage: '',
+  },
+  'stories.appearance.colorSurface.title': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.colorSurface.title',
+    defaultMessage: '',
+  },
+  'stories.appearance.colorSurface.description': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.colorSurface.description',
+    defaultMessage: '',
+  },
+  'stories.appearance.colorAccent.title': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.colorAccent.title',
+    defaultMessage: '',
+  },
+  'stories.appearance.colorAccent.description': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.colorAccent.description',
+    defaultMessage: '',
+  },
+  'stories.appearance.colorAccentContrast.title': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.colorAccentContrast.title',
+    defaultMessage: '',
+  },
+  'stories.appearance.colorAccentContrast.description': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.colorAccentContrast.description',
+    defaultMessage: '',
+  },
+  'stories.appearance.radius.title': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.radius.title',
+    defaultMessage: '',
+  },
+  'stories.appearance.radius.description': {
+    id: 'admin/vtex-vtex-ads.stories.appearance.radius.description',
+    defaultMessage: '',
+  },
+})
+
 // Site Editor lists a block by its component's schema title; the editable
 // fields come from the Stories definition in store/contentSchemas.json
 AdsStories.schema = {
-  title: 'admin/vtex-vtex-ads.stories.title',
+  title: messages['stories.title'].id,
 }
 
 export default AdsStories

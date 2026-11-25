@@ -1834,19 +1834,19 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.7.tgz#114e2ffc8d5be4915fdd5bc90668fc0ceaadb760"
   integrity sha512-LKzNTjj+2j09wAo/vvVjzgw5qckJJzhdGgWHW7j69QIGdq/KnZrMAMIHQiWGl3Ccflh5/CudBAntTPYdprPltA==
 
-"@vtex/ads-core@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@vtex/ads-core/-/ads-core-0.6.0.tgz#d1a7cfea5c6e01f19879a5f4c778d10b1cafb66b"
-  integrity sha512-axa/GXukv0SHTyfppc6ZZuK5I04Js73n/km06v9U8UNePDqjHF5V1vHL4zU4B1oPInZuq9DhLiD97S159u/ZAQ==
+"@vtex/ads-core@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@vtex/ads-core/-/ads-core-0.6.1.tgz#29e6fd421d1172b5499e666e11e5367da09cace1"
+  integrity sha512-fxx4LwnBnIqTxc8yh6ETLcf78IFhnOiL0WHV+7nA09UgheE/0nDUKHyMqPzCLUnMMVwgXKxJLCLAOj97Jxtj7w==
   dependencies:
     cross-fetch "^4.1.0"
 
-"@vtex/ads-stories@0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@vtex/ads-stories/-/ads-stories-0.8.0.tgz#21e147f0eee31a7ca58cecde1e2331c77469ef1e"
-  integrity sha512-3r8kERBAaQHsLhtMpTgCYFJSTDYvybAyggGJMV0iWTuHBv3iR+qwAwWEfX+n4ZNlaHnnqui8ACHkMjKC3GH9+w==
+"@vtex/ads-stories@0.9.0-beta.1":
+  version "0.9.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@vtex/ads-stories/-/ads-stories-0.9.0-beta.1.tgz#47b44f10c44962a263f2ba1feb27d18d14aa9000"
+  integrity sha512-t4kqf60WHfnQQOTm8puxCGs8QgAk8cEMOYSnAFlixoruzGgJ6Gw5AbQ3wcPRvyQ/AvXdEuGXwA3dAucaXBrGIQ==
   dependencies:
-    "@vtex/ads-core" "^0.6.0"
+    "@vtex/ads-core" "^0.6.1"
     lit "^3.3.3"
 
 "@vtex/test-tools@^3.4.3":

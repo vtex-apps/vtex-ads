@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { defineMessages } from 'react-intl'
-// The CJS build by path: the IO bundler (webpack 4) would pick the ESM build
-// through `module`, and Lit's ES2021 syntax there doesn't parse. The CJS
-// build bundles Lit lowered to ES2018.
 import {
   ADD_TO_CART_EVENT,
   REMOVE_FROM_CART_EVENT,
   defineVtexAdsStoryCarousel,
-} from '@vtex/ads-stories/dist/cjs/index.cjs'
+} from '@vtex/ads-stories'
 import type {
   StoryAddToCartEvent,
   StoryRemoveFromCartEvent,

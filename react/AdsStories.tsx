@@ -61,8 +61,6 @@ const numberOr = (value: unknown, fallback: number) =>
 interface Props {
   /** Editable in Site Editor: false hides the block. */
   active?: boolean
-  /** Overrides the publisher ID from the app settings. */
-  publisherId?: string
   placement?: string
   quantity?: number
   slideDuration?: number
@@ -77,7 +75,6 @@ interface Props {
 }
 
 function AdsStoriesCarousel({
-  publisherId: publisherIdProp,
   placement: placementProp,
   quantity,
   slideDuration,
@@ -96,7 +93,6 @@ function AdsStoriesCarousel({
   // which happens only after the client registers it.
   const [carousel, setCarousel] = useState<HTMLElement | null>(null)
   const [defined, setDefined] = useState(false)
-  const [publisherId, setPublisherId] = useState(publisherIdProp)
 
   // The cart changes after every event; the listeners read the latest one.
   const items = useRef(orderForm.items)
@@ -107,8 +103,7 @@ function AdsStoriesCarousel({
   useEffect(() => {
     defineVtexAdsStoryCarousel()
     setDefined(true)
-    setPublisherId(publisherIdProp || window.newtailMedia?.publisherId)
-  }, [publisherIdProp])
+  }, [])
 
   // The element has no cart of its own: it asks the store to change it.
   useEffect(() => {
@@ -167,7 +162,13 @@ function AdsStoriesCarousel({
     }
   }, [carousel, addItems, updateQuantity])
 
-  if (!defined || !publisherId || !sessionId) return null
+  if (!defined) return null
+
+  // From the app settings, which the pixel writes to the page. Read only
+  // after `defined`, so never on the server, which has no `window`.
+  const publisherId = window.newtailMedia?.publisherId
+
+  if (!publisherId || !sessionId) return null
 
   // The width comes from the theme's layout (a flex-layout.row, for
   // example); the container is the hook to style it, since React 16 doesn't

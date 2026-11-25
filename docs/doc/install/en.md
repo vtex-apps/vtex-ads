@@ -65,9 +65,11 @@ Now you need to define where your ads will appear. For each page that will displ
    Refer to the usage examples section for the correct block structure.
 3. `vtex-ads-sponsored-brands`  
    This component is responsible for displaying sponsored brand ads.
-4. `vtex-ads-pixel-event`  
+4. `vtex-ads-stories`  
+   This component is responsible for requesting and displaying Stories ads: a carousel of sponsored product videos, with add to and remove from the store's cart.
+5. `vtex-ads-pixel-event`  
    This component should be used inside product cards to listen to product events (clicks, impressions, etc.).
-5. `vtex-ads-conversion`  
+6. `vtex-ads-conversion`  
    This component is responsible for managing conversion events. **Please consult with technical support before implementing this component.**
 
 | For more information, visit the components page. There you can find specific documentation for each component and the properties they receive through block properties or via site editor.

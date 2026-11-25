@@ -8,7 +8,7 @@ While this app is designed to work smoothly with the VTEX Site Editor (CMS), the
 
 - **Easy Integration**: Simple setup with VTEX CLI
 - **Site Editor Compatible**: Visual configuration through VTEX CMS
-- **Multiple Ad Types**: Banners, sponsored products, and sponsored brands
+- **Multiple Ad Types**: Banners, sponsored products, sponsored brands and Stories
 - **Event Tracking**: Built-in impression, click, and conversion tracking
 - **Responsive Design**: Mobile and desktop optimized components
 - **Native VTEX Components**: Uses VTEX's native product components for consistency

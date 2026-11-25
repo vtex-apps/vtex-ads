@@ -62,9 +62,11 @@ Alternativamente, você pode acessar a configuração manualmente do VTEX Admin:
    Consulte a seção de exemplos de uso para a estrutura correta do bloco.
 3. `vtex-ads-sponsored-brands`  
    Este componente é responsável por exibir anúncios de marcas patrocinadas.
-4. `vtex-ads-pixel-event`  
+4. `vtex-ads-stories`  
+   Este componente é responsável por solicitar e exibir anúncios de Stories: um carrossel de vídeos de produtos patrocinados, com adicionar e remover do carrinho da loja.
+5. `vtex-ads-pixel-event`  
    Este componente deve ser usado dentro dos cartões de produto para escutar eventos de produto (cliques, impressões, etc.).
-5. `vtex-ads-conversion`  
+6. `vtex-ads-conversion`  
    Este componente é responsável por gerenciar eventos de conversão. **Por favor, consulte com suporte técnico antes de implementar este componente.**
 
 | Para mais informações, visite a página de componentes. Lá você pode encontrar documentação específica para cada componente e as propriedades que recebem através de propriedades de bloco ou via site editor.
@@ -158,6 +160,72 @@ Propriedades disponíveis no site editor.
 | `quantityAdmin`      | `number` | `null`        | Número de anúncios solicitados.                   |
 | `placementNameAdmin` | `string` | `null`        | Nome do placement usado na consulta.               |
 | `categoryNameAdmin`  | `string` | `null`        | Nome da categoria se você quiser forçar segmentação. |
+
+## VTEX Ads Stories
+
+`vtex-ads-stories`
+
+Este componente renderiza o carrossel de Stories do VTEX Ads ([`@vtex/ads-stories`](https://www.npmjs.com/package/@vtex/ads-stories)): vídeos curtos de produtos patrocinados. Os botões de adicionar e remover do carrinho alteram o carrinho da loja (`vtex.order-items`), e os preços e a disponibilidade vêm do catálogo da loja.
+
+O Publisher ID vem das configurações do app, como nos outros componentes. Sem ele, o bloco não renderiza nada. Coloque o bloco dentro de um `flex-layout.row`, que dá a largura do conteúdo da loja.
+
+```json
+{
+  "vtex-ads-stories#home": {
+    "title": "VTEX Ads - Stories home",
+    "props": {
+      "placement": "home_stories" // Placement de Stories cadastrado na plataforma de anúncios
+    }
+  },
+  "flex-layout.row#vtex-ads-stories": {
+    "children": ["vtex-ads-stories#home"]
+  },
+  "store.home": {
+    "blocks": [
+      "flex-layout.row#vtex-ads-stories"
+    ]
+  }
+}
+```
+
+#### Propriedades
+
+As mesmas propriedades valem na definição do bloco no tema e no site editor (exceto `hydration`, só no tema). Os valores do site editor têm prioridade.
+
+| Prop name | Type | Default value | Description |
+| --- | --- | --- | --- |
+| `active` | `boolean` | `true` | Se `false`, o bloco não renderiza. |
+| `placement` | `string` | `home_stories` | Nome do placement de Stories cadastrado na plataforma de anúncios. |
+| `quantity` | `number` | `8` | Quantidade de Stories solicitados. |
+| `slideDuration` | `number` | `5000` | Tempo, em milissegundos, que cada Story fica em destaque. `0` desativa o avanço automático. |
+| `inactiveAutoplay` | `boolean` | `false` | Se `true`, os Stories que não estão em destaque também reproduzem o vídeo, sem som. |
+| `hydration` | `"none"` | `null` | Só no tema. `"none"` não consulta preços e disponibilidade no catálogo da loja. |
+| `appearance` | `object` | `null` | Cores, fonte e cantos. Veja a tabela abaixo. |
+
+#### Aparência
+
+Cada campo de `appearance` define uma variável CSS do componente. Campos vazios mantêm o padrão do componente ou o valor definido pelo CSS do tema.
+
+| Campo | Variável CSS | Descrição |
+| --- | --- | --- |
+| `fontFamily` | `--vtex-ads-story-font-family` | Todo o texto, ex.: "Inter", sans-serif. Vazio: a fonte da loja. |
+| `colorText` | `--vtex-ads-story-color-text` | Texto fora do vídeo, como o painel do produto. Padrão #242424 no painel. |
+| `colorMuted` | `--vtex-ads-story-color-muted` | O preço "de" e o adicionar ao carrinho desativado. Padrão #6b6b6b. |
+| `colorSurface` | `--vtex-ads-story-color-surface` | O painel do produto, o botão ver produto e o fundo atrás de um único Story. Padrão #fff. |
+| `colorAccent` | `--vtex-ads-story-color-accent` | Os botões do painel do produto. Padrão #1b75a8. |
+| `colorAccentContrast` | `--vtex-ads-story-color-accent-contrast` | Texto do botão adicionar ao carrinho. Padrão #fff. |
+| `radius` | `--vtex-ads-story-radius` | Com unidade, ex.: 20px. 0px deixa cards, pílulas e botões quadrados. Os botões de ícone redondos continuam redondos. |
+
+#### CSS
+
+O container do bloco tem o CSS handle `stories-container`. O tema também pode definir as variáveis CSS nele, em `styles/css/vtex.vtex-ads.css`:
+
+```css
+.stories-container {
+  --vtex-ads-story-color-accent: #f71963;
+  --vtex-ads-story-radius: 20px;
+}
+```
 
 ## VTEX Ads Pixel Event
 

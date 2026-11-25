@@ -1841,10 +1841,10 @@
   dependencies:
     cross-fetch "^4.1.0"
 
-"@vtex/ads-stories@0.9.0-beta.1":
-  version "0.9.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@vtex/ads-stories/-/ads-stories-0.9.0-beta.1.tgz#47b44f10c44962a263f2ba1feb27d18d14aa9000"
-  integrity sha512-t4kqf60WHfnQQOTm8puxCGs8QgAk8cEMOYSnAFlixoruzGgJ6Gw5AbQ3wcPRvyQ/AvXdEuGXwA3dAucaXBrGIQ==
+"@vtex/ads-stories@0.9.0-beta.2":
+  version "0.9.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@vtex/ads-stories/-/ads-stories-0.9.0-beta.2.tgz#64b2b188c6a3283cb6641e9b4894daad4d69af9d"
+  integrity sha512-3AMrFxXoaQBi/IkewbWhnrF6mEQCXDXlPhSY/bsOBhN+O1mS00pl99xVtPiuyCcyi4Ne8X0t3UaAfhu9U0W3tw==
   dependencies:
     "@vtex/ads-core" "^0.6.1"
     lit "^3.3.3"

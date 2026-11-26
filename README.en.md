@@ -1,6 +1,6 @@
 # VTEX Ads APP
 
-This is a **Storefront app** that allows you to display ads in VTEX stores in a simple and configurable way. It offers ready-to-use components that render banners, sponsored product carousels, and sponsored brand placements in strategic areas of your store.
+This is a **Storefront app** that allows you to display ads in VTEX stores in a simple and configurable way. It offers ready-to-use components that render banners, sponsored product carousels, sponsored brand placements, and Stories carousels in strategic areas of your store.
 
 > 📚 **VTEX IO Documentation**: For more information about Storefront app development, see the [official VTEX documentation](https://developers.vtex.com/docs/guides/vtex-io-documentation-1-developing-storefront-apps-using-react-and-vtex-io).
 
@@ -117,22 +117,23 @@ Use the search page as an example.
           "vtex-ads-banner#search-top": {
               "title": "VTEX Ads - Banner top PDP",
               "props": {
-              "placementName": "site_search_top_banner", // {channel}_{context}_{position}_{type}
-              "size": "1280x176", // Same size registered in the ads admin
-              "sizeMobile": "634x300" // Same size registered in the ads admin
+                "placementName": "site_search_top_banner", // {channel}_{context}_{position}_{type}
+                "size": "1280x176", // Same size registered in the ads admin
+                "sizeMobile": "634x300" // Same size registered in the ads admin
               }
           },
           "store.search": {
               "blocks": [
-              "vtex-ads-banner#search-top",
-              "search-result-layout"
+                "vtex-ads-banner#search-top",
+                "search-result-layout"
               ]
           }
         }
     ```
 
 2. Sponsored products
-> To maintain the originality and business rules of the theme, the shelves receive some additional components: `list-context.product-list-static`, `slider-layout` and `product-summary.shelf`.
+    > To maintain the originality and business rules of the theme, the shelves receive some additional components: `list-context.product-list-static`, `slider-layout` and `product-summary.shelf`.
+
     ```json
         {
           "list-context.product-list-static#vtex-ads": {
@@ -153,8 +154,8 @@ Use the search page as an example.
           },
           "store.search": {
               "blocks": [
-              "vtex-ads-shelf#pdp-middle",
-              "search-result-layout"
+                "vtex-ads-shelf#pdp-middle",
+                "search-result-layout"
               ]
           }
         }
@@ -162,7 +163,8 @@ Use the search page as an example.
 
 
 3. Sponsored brands
-> To maintain the originality and business rules of the theme, the shelves receive some additional components: `list-context.product-list-static`, `slider-layout` and `product-summary.shelf`.
+    > To maintain the originality and business rules of the theme, the shelves receive some additional components: `list-context.product-list-static`, `slider-layout` and `product-summary.shelf`.
+
     ```json
         {
           "list-context.product-list-static#vtex-ads": {
@@ -182,15 +184,16 @@ Use the search page as an example.
           },
           "store.search": {
               "blocks": [
-              "vtex-ads-sponsored-brands#search-top",
-              "search-result-layout"
+                "vtex-ads-sponsored-brands#search-top",
+                "search-result-layout"
               ]
           }
         }
     ```
 
 4. Stories
-> Use the home page (`store/blocks/home/`). Place the block inside a `flex-layout.row`, which gives it the width of the store's content; without it, the carousel takes the full width of the screen.
+    > Use the home page (`store/blocks/home/`). Place the block inside a `flex-layout.row`, which gives it the width of the store's content; without it, the carousel takes the full width of the screen.
+
     ```json
         {
           "vtex-ads-stories#home": {

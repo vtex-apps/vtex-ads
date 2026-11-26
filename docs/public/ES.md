@@ -117,15 +117,15 @@ Usa la página de búsqueda como ejemplo.
           "vtex-ads-banner#search-top": {
               "title": "VTEX Ads - Banner top PDP",
               "props": {
-              "placementName": "site_search_top_banner", // {canal}_{contexto}_{posición}_{tipo}
-              "size": "1280x176", // Mismo tamaño registrado en el admin de ads
-              "sizeMobile": "634x300" // Mismo tamaño registrado en el admin de ads
+                "placementName": "site_search_top_banner", // {canal}_{contexto}_{posición}_{tipo}
+                "size": "1280x176", // Mismo tamaño registrado en el admin de ads
+                "sizeMobile": "634x300" // Mismo tamaño registrado en el admin de ads
               }
           },
           "store.search": {
               "blocks": [
-              "vtex-ads-banner#search-top",
-              "search-result-layout"
+                "vtex-ads-banner#search-top",
+                "search-result-layout"
               ]
           }
         }
@@ -154,8 +154,8 @@ Usa la página de búsqueda como ejemplo.
           },
           "store.search": {
               "blocks": [
-              "vtex-ads-shelf#pdp-middle",
-              "search-result-layout"
+                "vtex-ads-shelf#pdp-middle",
+                "search-result-layout"
               ]
           }
         }
@@ -184,8 +184,8 @@ Usa la página de búsqueda como ejemplo.
           },
           "store.search": {
               "blocks": [
-              "vtex-ads-sponsored-brands#search-top",
-              "search-result-layout"
+                "vtex-ads-sponsored-brands#search-top",
+                "search-result-layout"
               ]
           }
         }

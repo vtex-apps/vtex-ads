@@ -1,0 +1,24 @@
+{
+  /**
+   * Ad Block
+   * [en] Here is called the block that builds the sponsored Stories carousel
+   */
+  "vtex-ads-stories#home": {
+    "title": "VTEX Ads - Stories home",
+    "props": {
+      "placement": "home_stories" // Stories placement registered in the ad platform
+      // Colors, font and corners: "appearance" here or in the site editor, or
+      // the CSS variables in styles/css/vtex.vtex-ads.css
+    }
+  },
+
+  /**
+   * Final component
+   * This block will be called in the home page of your theme in the position you want to insert ads.
+   * The row gives the carousel the width of the store's content; without it, it takes the full width of the screen.
+   */
+  "flex-layout.row#vtex-ads-home-stories": {
+    // [DOC] https://developers.vtex.com/docs/apps/vtex.flex-layout
+    "children": ["vtex-ads-stories#home"]
+  }
+}

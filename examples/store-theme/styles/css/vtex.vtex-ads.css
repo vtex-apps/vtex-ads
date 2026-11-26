@@ -58,6 +58,21 @@
 .sponsored-brands-banner-item {}
 
 /**
+* vtex-ads-stories
+* The carousel reads its CSS variables from this container.
+*/
+
+.stories-container {
+  /* --vtex-ads-story-font-family: "Inter", sans-serif; */
+  /* --vtex-ads-story-color-text: #242424; */
+  /* --vtex-ads-story-color-muted: #6b6b6b; */
+  /* --vtex-ads-story-color-surface: #fff; */
+  /* --vtex-ads-story-color-accent: #1b75a8; */
+  /* --vtex-ads-story-color-accent-contrast: #fff; */
+  /* --vtex-ads-story-radius: 20px; */
+}
+
+/**
 * vtex-ads-pixel-event
 */
 

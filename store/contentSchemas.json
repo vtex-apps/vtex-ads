@@ -109,6 +109,79 @@
           "type": "string"
         }
       }
+    },
+    "Stories": {
+      "title": "admin/vtex-vtex-ads.stories.title",
+      "type": "object",
+      "properties": {
+        "active": {
+          "title": "admin/vtex-vtex-ads.common.active.title",
+          "type": "boolean",
+          "default": true
+        },
+        "placement": {
+          "title": "admin/vtex-vtex-ads.common.placementNameAdmin.title",
+          "description": "admin/vtex-vtex-ads.stories.placement.description",
+          "type": "string"
+        },
+        "quantity": {
+          "title": "admin/vtex-vtex-ads.stories.quantity.title",
+          "description": "admin/vtex-vtex-ads.stories.quantity.description",
+          "type": "number"
+        },
+        "slideDuration": {
+          "title": "admin/vtex-vtex-ads.stories.slideDuration.title",
+          "description": "admin/vtex-vtex-ads.stories.slideDuration.description",
+          "type": "number"
+        },
+        "inactiveAutoplay": {
+          "title": "admin/vtex-vtex-ads.stories.inactiveAutoplay.title",
+          "description": "admin/vtex-vtex-ads.stories.inactiveAutoplay.description",
+          "type": "boolean"
+        },
+        "appearance": {
+          "title": "admin/vtex-vtex-ads.stories.appearance.title",
+          "description": "admin/vtex-vtex-ads.stories.appearance.description",
+          "type": "object",
+          "properties": {
+            "fontFamily": {
+              "title": "admin/vtex-vtex-ads.stories.appearance.fontFamily.title",
+              "description": "admin/vtex-vtex-ads.stories.appearance.fontFamily.description",
+              "type": "string"
+            },
+            "colorText": {
+              "title": "admin/vtex-vtex-ads.stories.appearance.colorText.title",
+              "description": "admin/vtex-vtex-ads.stories.appearance.colorText.description",
+              "type": "string"
+            },
+            "colorMuted": {
+              "title": "admin/vtex-vtex-ads.stories.appearance.colorMuted.title",
+              "description": "admin/vtex-vtex-ads.stories.appearance.colorMuted.description",
+              "type": "string"
+            },
+            "colorSurface": {
+              "title": "admin/vtex-vtex-ads.stories.appearance.colorSurface.title",
+              "description": "admin/vtex-vtex-ads.stories.appearance.colorSurface.description",
+              "type": "string"
+            },
+            "colorAccent": {
+              "title": "admin/vtex-vtex-ads.stories.appearance.colorAccent.title",
+              "description": "admin/vtex-vtex-ads.stories.appearance.colorAccent.description",
+              "type": "string"
+            },
+            "colorAccentContrast": {
+              "title": "admin/vtex-vtex-ads.stories.appearance.colorAccentContrast.title",
+              "description": "admin/vtex-vtex-ads.stories.appearance.colorAccentContrast.description",
+              "type": "string"
+            },
+            "radius": {
+              "title": "admin/vtex-vtex-ads.stories.appearance.radius.title",
+              "description": "admin/vtex-vtex-ads.stories.appearance.radius.description",
+              "type": "string"
+            }
+          }
+        }
+      }
     }
   }
 }

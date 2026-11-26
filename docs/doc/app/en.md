@@ -62,9 +62,11 @@ Alternatively, you can access the configuration manually from the VTEX Admin:
    Refer to the usage examples section for the correct block structure.
 3. `vtex-ads-sponsored-brands`  
    This component is responsible for displaying sponsored brand ads.
-4. `vtex-ads-pixel-event`  
+4. `vtex-ads-stories`  
+   This component is responsible for requesting and displaying Stories ads: a carousel of sponsored product videos, with add to and remove from the store's cart.
+5. `vtex-ads-pixel-event`  
    This component should be used inside product cards to listen to product events (clicks, impressions, etc.).
-5. `vtex-ads-conversion`  
+6. `vtex-ads-conversion`  
    This component is responsible for managing conversion events. **Please consult with technical support before implementing this component.**
 
 | For more information, visit the components page. There you can find specific documentation for each component and the properties they receive through block properties or via site editor.
@@ -158,6 +160,72 @@ Properties available in the site editor.
 | `quantityAdmin`      | `number` | `null`        | Number of requested ads.                           |
 | `placementNameAdmin` | `string` | `null`        | Placement name used in the query.                  |
 | `categoryNameAdmin`  | `string` | `null`        | Category name if you want to enforce segmentation. |
+
+## VTEX Ads Stories
+
+`vtex-ads-stories`
+
+This component renders the VTEX Ads Stories carousel ([`@vtex/ads-stories`](https://www.npmjs.com/package/@vtex/ads-stories)): short videos of sponsored products. The add to cart and remove from cart buttons change the store's cart (`vtex.order-items`), and prices and availability come from the store's catalog.
+
+The Publisher ID comes from the app settings, as in the other components. Without it, the block renders nothing. Place the block inside a `flex-layout.row`, which gives it the width of the store's content.
+
+```json
+{
+  "vtex-ads-stories#home": {
+    "title": "VTEX Ads - Stories home",
+    "props": {
+      "placement": "home_stories" // Stories placement registered in the ad platform
+    }
+  },
+  "flex-layout.row#vtex-ads-stories": {
+    "children": ["vtex-ads-stories#home"]
+  },
+  "store.home": {
+    "blocks": [
+      "flex-layout.row#vtex-ads-stories"
+    ]
+  }
+}
+```
+
+#### Properties
+
+The same properties work in the block definition in the theme and in the site editor (except `hydration`, theme only). Site editor values take priority.
+
+| Prop name | Type | Default value | Description |
+| --- | --- | --- | --- |
+| `active` | `boolean` | `true` | If `false`, the block does not render. |
+| `placement` | `string` | `home_stories` | Name of the Stories placement registered in the ad platform. |
+| `quantity` | `number` | `8` | Number of Stories requested. |
+| `slideDuration` | `number` | `5000` | Time, in milliseconds, each Story stays highlighted. `0` turns off automatic advance. |
+| `inactiveAutoplay` | `boolean` | `false` | If `true`, the Stories that are not highlighted also play their video, muted. |
+| `hydration` | `"none"` | `null` | Theme only. `"none"` skips the price and availability request to the store's catalog. |
+| `appearance` | `object` | `null` | Colors, font and corners. See the table below. |
+
+#### Appearance
+
+Each `appearance` field sets one of the component's CSS variables. Empty fields keep the component's default or the value set by the theme's CSS.
+
+| Field | CSS variable | Description |
+| --- | --- | --- |
+| `fontFamily` | `--vtex-ads-story-font-family` | All text, e.g. "Inter", sans-serif. Empty: the store's font. |
+| `colorText` | `--vtex-ads-story-color-text` | Text off the video, such as the product panel. Default #242424 in the panel. |
+| `colorMuted` | `--vtex-ads-story-color-muted` | The "from" price and the disabled add to cart. Default #6b6b6b. |
+| `colorSurface` | `--vtex-ads-story-color-surface` | The product panel, the view product button and the background behind a single Story. Default #fff. |
+| `colorAccent` | `--vtex-ads-story-color-accent` | The product panel's buttons. Default #1b75a8. |
+| `colorAccentContrast` | `--vtex-ads-story-color-accent-contrast` | Text on the add to cart button. Default #fff. |
+| `radius` | `--vtex-ads-story-radius` | With a unit, e.g. 20px. 0px makes cards, pills and buttons square. Round icon buttons stay round. |
+
+#### CSS
+
+The block's container has the CSS handle `stories-container`. The theme can also set the CSS variables on it, in `styles/css/vtex.vtex-ads.css`:
+
+```css
+.stories-container {
+  --vtex-ads-story-color-accent: #f71963;
+  --vtex-ads-story-radius: 20px;
+}
+```
 
 ## VTEX Ads Pixel Event
 

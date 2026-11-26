@@ -87,6 +87,9 @@ Now you need to declare the components on the pages of your theme. The component
     3. `vtex-ads-sponsored-brands`  
     Displays sponsored brands in carousel. Also requires the `list-context.product-list-static`, `slider-layout` blocks and the theme's product card (e.g. `product-summary.shelf`).
 
+    4. `vtex-ads-stories`  
+    Displays the VTEX Ads Stories carousel: videos of sponsored products, with add to and remove from the store's cart. It works autonomously and does not require children.
+
 2. Event notification
     1. `vtex-ads-pixel-event`  
     This component should be used inside product cards to listen to product events (clicks, impressions, etc.).
@@ -182,6 +185,27 @@ Use the search page as an example.
               "vtex-ads-sponsored-brands#search-top",
               "search-result-layout"
               ]
+          }
+        }
+    ```
+
+4. Stories
+> Use the home page (`store/blocks/home/`). Place the block inside a `flex-layout.row`, which gives it the width of the store's content; without it, the carousel takes the full width of the screen.
+    ```json
+        {
+          "vtex-ads-stories#home": {
+            "title": "VTEX Ads - Stories home",
+            "props": {
+              "placement": "home_stories" // Stories placement registered in the ad platform
+            }
+          },
+          "flex-layout.row#vtex-ads-stories": {
+            "children": ["vtex-ads-stories#home"]
+          },
+          "store.home": {
+            "blocks": [
+              "flex-layout.row#vtex-ads-stories"
+            ]
           }
         }
     ```

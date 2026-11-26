@@ -8,7 +8,7 @@ Aunque esta app está diseñada para funcionar perfectamente con el VTEX Site Ed
 
 - **Integración Fácil**: Configuración simple con VTEX CLI
 - **Compatible con Site Editor**: Configuración visual a través del CMS de VTEX
-- **Múltiples Tipos de Anuncios**: Banners, productos patrocinados y marcas patrocinadas
+- **Múltiples Tipos de Anuncios**: Banners, productos patrocinados, marcas patrocinadas y Stories
 - **Seguimiento de Eventos**: Seguimiento integrado de impresiones, clics y conversiones
 - **Diseño Responsivo**: Componentes optimizados para mobile y desktop
 - **Componentes Nativos de VTEX**: Utiliza componentes nativos de productos de VTEX para consistencia

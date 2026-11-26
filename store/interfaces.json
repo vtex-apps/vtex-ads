@@ -36,6 +36,13 @@
     }
   },
 
+  "vtex-ads-stories": {
+    "component": "AdsStories",
+    "content": {
+      "$ref": "#/definitions/Stories"
+    }
+  },
+
   "vtex-ads-conversion": {
     "component": "Conversion"
   },

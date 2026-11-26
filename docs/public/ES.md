@@ -87,6 +87,9 @@ Ahora necesitas declarar los componentes en las páginas de tu tema. Los compone
     3. `vtex-ads-sponsored-brands`  
     Muestra marcas patrocinadas en carrusel. También requiere los bloques `list-context.product-list-static`, `slider-layout` y la tarjeta de producto del tema (ej: `product-summary.shelf`).
 
+    4. `vtex-ads-stories`  
+    Muestra el carrusel de Stories de VTEX Ads: videos de productos patrocinados, con agregar y quitar del carrito de la tienda. Funciona de forma autónoma y no requiere hijos.
+
 2. Notificación de eventos
     1. `vtex-ads-pixel-event`  
     Este componente debe usarse dentro de las tarjetas de producto para escuchar eventos de producto (clics, impresiones, etc.).
@@ -182,6 +185,27 @@ Usa la página de búsqueda como ejemplo.
               "vtex-ads-sponsored-brands#search-top",
               "search-result-layout"
               ]
+          }
+        }
+    ```
+
+4. Stories
+> Usa la página de inicio (`store/blocks/home/`). Coloca el bloque dentro de un `flex-layout.row`, que le da el ancho del contenido de la tienda; sin él, el carrusel ocupa todo el ancho de la pantalla.
+    ```json
+        {
+          "vtex-ads-stories#home": {
+            "title": "VTEX Ads - Stories home",
+            "props": {
+              "placement": "home_stories" // Placement de Stories registrado en la plataforma de anuncios
+            }
+          },
+          "flex-layout.row#vtex-ads-stories": {
+            "children": ["vtex-ads-stories#home"]
+          },
+          "store.home": {
+            "blocks": [
+              "flex-layout.row#vtex-ads-stories"
+            ]
           }
         }
     ```

@@ -65,9 +65,11 @@ Ahora necesitas definir dónde aparecerán tus anuncios. Para cada página que m
    Consulta la sección de ejemplos de uso para la estructura correcta del bloque.
 3. `vtex-ads-sponsored-brands`  
    Este componente es responsable de mostrar anuncios de marcas patrocinadas.
-4. `vtex-ads-pixel-event`  
+4. `vtex-ads-stories`  
+   Este componente es responsable de solicitar y mostrar anuncios de Stories: un carrusel de videos de productos patrocinados, con agregar y quitar del carrito de la tienda.
+5. `vtex-ads-pixel-event`  
    Este componente debe usarse dentro de las tarjetas de producto para escuchar eventos de producto (clics, impresiones, etc.).
-5. `vtex-ads-conversion`  
+6. `vtex-ads-conversion`  
    Este componente es responsable de gestionar eventos de conversión. **Por favor consulta con soporte técnico antes de implementar este componente.**
 
 | Para más información, visita la página de componentes. Allí puedes encontrar documentación específica para cada componente y las propiedades que reciben a través de propiedades de bloque o vía site editor.

@@ -1,0 +1,7 @@
+{
+  "store.home": {
+    "blocks": [
+      "flex-layout.row#vtex-ads-home-stories" // ./store-theme/store/blocks/vtexads/site-home-stories.jsonc
+    ]
+  }
+}

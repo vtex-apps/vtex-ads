@@ -1,6 +1,6 @@
 # VTEX Ads APP
 
-Esta es una **aplicación Storefront** que permite mostrar anuncios en tiendas VTEX de forma simple y configurable. Ofrece componentes listos para usar que renderizan banners, carruseles de productos patrocinados y posicionamientos de marcas patrocinadas en áreas estratégicas de tu tienda.
+Esta es una **aplicación Storefront** que permite mostrar anuncios en tiendas VTEX de forma simple y configurable. Ofrece componentes listos para usar que renderizan banners, carruseles de productos patrocinados, posicionamientos de marcas patrocinadas y carruseles de Stories en áreas estratégicas de tu tienda.
 
 > 📚 **Documentación VTEX IO**: Para más información sobre desarrollo de aplicaciones Storefront, consulta la [documentación oficial de VTEX](https://developers.vtex.com/docs/guides/vtex-io-documentation-1-developing-storefront-apps-using-react-and-vtex-io).
 
@@ -132,7 +132,8 @@ Usa la página de búsqueda como ejemplo.
     ```
 
 2. Productos patrocinados
-> Para mantener la originalidad y reglas de negocio del tema, las estanterías reciben algunos componentes adicionales: `list-context.product-list-static`, `slider-layout` y `product-summary.shelf`.
+    > Para mantener la originalidad y reglas de negocio del tema, las estanterías reciben algunos componentes adicionales: `list-context.product-list-static`, `slider-layout` y `product-summary.shelf`.
+
     ```json
         {
           "list-context.product-list-static#vtex-ads": {
@@ -162,7 +163,8 @@ Usa la página de búsqueda como ejemplo.
 
 
 3. Marcas patrocinadas (sponsored brands)
-> Para mantener la originalidad y reglas de negocio del tema, las estanterías reciben algunos componentes adicionales: `list-context.product-list-static`, `slider-layout` y `product-summary.shelf`.
+    > Para mantener la originalidad y reglas de negocio del tema, las estanterías reciben algunos componentes adicionales: `list-context.product-list-static`, `slider-layout` y `product-summary.shelf`.
+
     ```json
         {
           "list-context.product-list-static#vtex-ads": {
@@ -190,7 +192,8 @@ Usa la página de búsqueda como ejemplo.
     ```
 
 4. Stories
-> Usa la página de inicio (`store/blocks/home/`). Coloca el bloque dentro de un `flex-layout.row`, que le da el ancho del contenido de la tienda; sin él, el carrusel ocupa todo el ancho de la pantalla.
+    > Usa la página de inicio (`store/blocks/home/`). Coloca el bloque dentro de un `flex-layout.row`, que le da el ancho del contenido de la tienda; sin él, el carrusel ocupa todo el ancho de la pantalla.
+
     ```json
         {
           "vtex-ads-stories#home": {
